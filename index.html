@@ -7,11 +7,8 @@
 
   <style>
     :root{
-      /* Oliver Hey blå */
-      --brand: #1D49A8;
+      --brand:#1D49A8;
       --brand-2:#2C61D6;
-
-      /* UI */
       --ink:#0B1B2A;
       --muted:#6B7785;
       --line:#E7E9EE;
@@ -19,13 +16,8 @@
       --soft2: rgba(29,73,168,.06);
       --bg:#FFFFFF;
       --card:#FFFFFF;
-
-      --radius: 12px;
       --radius2: 14px;
-
-      --shadow: 0 10px 30px rgba(11,27,42,.08);
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -35,7 +27,6 @@
       color:var(--ink);
     }
 
-    /* Topbar */
     .topbar{
       height:76px;
       border-bottom:1px solid var(--line);
@@ -54,12 +45,7 @@
       justify-content:space-between;
       gap:12px;
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:0;}
     .brandmark{
       width:34px;height:34px;border-radius:10px;
       background: linear-gradient(135deg, var(--brand), var(--brand-2));
@@ -67,90 +53,35 @@
       flex:0 0 auto;
     }
     .brandtitle{
-      font-weight:900;
-      letter-spacing:.2px;
-      font-size:13px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      opacity:.92;
+      font-weight:900;letter-spacing:.2px;font-size:13px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.92;
     }
     .pill{
-      border:0;
-      background: rgba(29,73,168,.10);
-      color:var(--brand);
-      font-weight:900;
-      border-radius:999px;
-      height:44px;
-      padding:0 18px;
-      cursor:pointer;
+      border:0;background: rgba(29,73,168,.10);color:var(--brand);
+      font-weight:900;border-radius:999px;height:44px;padding:0 18px;cursor:pointer;
     }
     .menu{
       width:44px;height:44px;border-radius:999px;
-      border:1px solid var(--line);
-      background:#fff;
-      display:grid;
-      place-items:center;
-      cursor:pointer;
+      border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;
     }
-    .menu span{
-      width:18px;height:2px;background:var(--brand);
-      position:relative;display:block;border-radius:2px;
-    }
-    .menu span:before,.menu span:after{
-      content:"";
-      width:18px;height:2px;background:var(--brand);
-      position:absolute;left:0;border-radius:2px;
-    }
+    .menu span{width:18px;height:2px;background:var(--brand);position:relative;display:block;border-radius:2px;}
+    .menu span:before,.menu span:after{content:"";width:18px;height:2px;background:var(--brand);position:absolute;left:0;border-radius:2px;}
     .menu span:before{top:-6px}
     .menu span:after{top:6px}
 
-    /* Page */
-    .wrap{
-      display:flex;
-      justify-content:center;
-      padding: 26px 0 64px;
-    }
-    .container{
-      width:min(920px, 92vw);
-    }
+    .wrap{display:flex;justify-content:center;padding: 26px 0 64px;}
+    .container{width:min(920px, 92vw);}
 
-    .hero{
-      text-align:center;
-      padding: 18px 8px 18px;
-    }
-    .hero h1{
-      margin: 8px 0 10px;
-      font-size: clamp(34px, 5vw, 52px);
-      letter-spacing:-1px;
-      line-height:1.05;
-      font-weight: 1000;
-    }
-    .hero p{
-      margin:0;
-      color:var(--muted);
-      font-weight:700;
-      font-size:16px;
-    }
+    .hero{text-align:center;padding: 18px 8px 18px;}
+    .hero h1{margin: 8px 0 10px;font-size: clamp(34px, 5vw, 52px);letter-spacing:-1px;line-height:1.05;font-weight: 1000;}
+    .hero p{margin:0;color:var(--muted);font-weight:700;font-size:16px;}
 
-    /* Steps */
     .step{display:none}
     .step.active{display:block}
 
-    /* Section headings */
-    .section-title{
-      font-size:22px;
-      font-weight:1000;
-      margin: 14px 0 14px;
-      letter-spacing:-.4px;
-    }
-    .subline{
-      margin:-6px 0 18px;
-      color:var(--brand);
-      font-weight:900;
-    }
+    .section-title{font-size:22px;font-weight:1000;margin: 14px 0 14px;letter-spacing:-.4px;}
+    .subline{margin:-6px 0 18px;color:var(--brand);font-weight:900;}
 
-    /* Cards list */
     .cards{display:grid;gap:14px}
     .cardopt{
       background:var(--card);
@@ -163,285 +94,101 @@
       cursor:pointer;
       user-select:none;
     }
-    .cardopt.selected{
-      border-color: var(--brand);
-      background: var(--soft);
-    }
+    .cardopt.selected{border-color: var(--brand);background: var(--soft);}
     .ico{
-      width:46px;height:46px;
-      border-radius: 12px;
+      width:46px;height:46px;border-radius: 12px;
       border:1px solid rgba(29,73,168,.18);
       background: rgba(29,73,168,.07);
-      display:grid;
-      place-items:center;
-      flex:0 0 auto;
+      display:grid;place-items:center;flex:0 0 auto;
     }
-    .ico svg{
-      width:26px;height:26px;
-      fill:none;
-      stroke:var(--brand);
-      stroke-width:2;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-    }
-    .txt h3{
-      margin:0;
-      font-size:22px;
-      font-weight:1000;
-      letter-spacing:-.4px;
-    }
-    .txt p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-weight:750;
-      line-height:1.25;
-      font-size:15px;
-    }
+    .ico svg{width:26px;height:26px;fill:none;stroke:var(--brand);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+    .txt h3{margin:0;font-size:22px;font-weight:1000;letter-spacing:-.4px;}
+    .txt p{margin:6px 0 0;color:var(--muted);font-weight:750;line-height:1.25;font-size:15px;}
 
-    /* Two-col cards */
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      margin-bottom: 16px;
-    }
+    .grid2{display:grid;grid-template-columns: 1fr 1fr;gap:14px;margin-bottom: 16px;}
     .miniopt{
-      background:#fff;
-      border:2px solid var(--line);
-      border-radius: var(--radius2);
-      padding: 18px 16px;
-      display:flex;
-      gap:12px;
-      align-items:center;
-      cursor:pointer;
-      user-select:none;
-      justify-content:center;
-      text-align:center;
-      min-height: 76px;
+      background:#fff;border:2px solid var(--line);border-radius: var(--radius2);
+      padding: 18px 16px;display:flex;gap:12px;align-items:center;cursor:pointer;
+      user-select:none;justify-content:center;text-align:center;min-height: 76px;
     }
     .miniopt.selected{
-      border-color: var(--brand);
-      background: var(--soft);
+      border-color: var(--brand);background: var(--soft);
       box-shadow: 0 12px 22px rgba(29,73,168,.10);
     }
     .miniopt .mi{width:24px;height:24px;display:grid;place-items:center;}
-    .miniopt .mi svg{
-      width:22px;height:22px;
-      fill:none;stroke:var(--ink);stroke-width:2;
-      stroke-linecap:round;stroke-linejoin:round;
-    }
+    .miniopt .mi svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
     .miniopt.selected .mi svg{stroke:var(--brand)}
-    .miniopt .label{
-      font-weight:1000;
-      font-size:22px;
-      letter-spacing:-.4px;
-    }
+    .miniopt .label{font-weight:1000;font-size:22px;letter-spacing:-.4px;}
     .miniopt.selected .label{color:var(--brand)}
 
-    /* Measure (Metric only) */
     .fullopt{
-      background:#fff;
-      border:2px solid var(--line);
-      border-radius: var(--radius2);
-      padding: 18px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height: 76px;
-      margin-bottom: 8px;
+      background:#fff;border:2px solid var(--line);border-radius: var(--radius2);
+      padding: 18px 16px;display:flex;align-items:center;justify-content:center;min-height: 76px;margin-bottom: 8px;
     }
     .fullopt.selected{
-      border-color: var(--brand);
-      background: var(--soft);
+      border-color: var(--brand);background: var(--soft);
       box-shadow: 0 12px 22px rgba(29,73,168,.10);
     }
 
-    /* Sliders */
     .sliderblock{margin: 18px 0 18px;}
-    .slrow{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom: 10px;
-    }
-    .sltitle{
-      font-size:22px;
-      font-weight:1000;
-      letter-spacing:-.4px;
-    }
-    .slval{
-      font-size:32px;
-      font-weight:1000;
-      color:var(--brand);
-      letter-spacing:-.6px;
-      white-space:nowrap;
-    }
+    .slrow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom: 10px;}
+    .sltitle{font-size:22px;font-weight:1000;letter-spacing:-.4px;}
+    .slval{font-size:32px;font-weight:1000;color:var(--brand);letter-spacing:-.6px;white-space:nowrap;}
 
     input[type="range"]{
       width:100%;
       -webkit-appearance:none;
       appearance:none;
-      height:10px;
-      border-radius:999px;
+      height:10px;border-radius:999px;
       background: linear-gradient(90deg, var(--brand) 0%, var(--brand) 50%, #E8EAEE 50%, #E8EAEE 100%);
       outline:none;
     }
     input[type="range"]::-webkit-slider-thumb{
-      -webkit-appearance:none;
-      appearance:none;
-      width:30px;height:30px;
-      border-radius:999px;
-      background:#fff;
-      border:2px solid #D8DCE3;
-      box-shadow: 0 10px 18px rgba(11,27,42,.12);
-      cursor:pointer;
-    }
-    input[type="range"]::-moz-range-thumb{
+      -webkit-appearance:none;appearance:none;
       width:30px;height:30px;border-radius:999px;
       background:#fff;border:2px solid #D8DCE3;
       box-shadow: 0 10px 18px rgba(11,27,42,.12);
       cursor:pointer;
     }
-    input[type="range"]::-moz-range-track{
-      height:10px;border-radius:999px;background:#E8EAEE;
-    }
 
-    /* Actions */
-    .actions{
-      margin-top: 22px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-    .btn{
-      height:62px;
-      border-radius: 12px;
-      border:0;
-      font-weight:1000;
-      font-size:20px;
-      cursor:pointer;
-    }
+    .actions{margin-top: 22px;display:flex;flex-direction:column;gap:12px;}
+    .btn{height:62px;border-radius: 12px;border:0;font-weight:1000;font-size:20px;cursor:pointer;}
     .btn.primary{
       background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      color:#fff;
-      box-shadow: 0 18px 30px rgba(29,73,168,.20);
+      color:#fff;box-shadow: 0 18px 30px rgba(29,73,168,.20);
     }
     .backlink{
-      text-align:center;
-      background:transparent;
-      border:0;
-      color: var(--brand);
-      font-weight:1000;
-      font-size:18px;
-      cursor:pointer;
-      padding: 6px 0 0;
+      text-align:center;background:transparent;border:0;color: var(--brand);
+      font-weight:1000;font-size:18px;cursor:pointer;padding: 6px 0 0;
     }
 
-    /* Results */
-    .results-h{
-      font-size: clamp(34px, 5vw, 54px);
-      font-weight:1000;
-      letter-spacing:-1px;
-      margin: 10px 0 18px;
-    }
+    .results-h{font-size: clamp(34px, 5vw, 54px);font-weight:1000;letter-spacing:-1px;margin: 10px 0 18px;}
     .resultgrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      border-radius: 14px;
-      overflow:hidden;
-      border:1px solid var(--line);
-      background: var(--soft2);
-      margin-bottom: 22px;
+      display:grid;grid-template-columns: 1fr 1fr;
+      border-radius: 14px;overflow:hidden;border:1px solid var(--line);
+      background: var(--soft2);margin-bottom: 22px;
     }
-    .rbox{
-      padding: 16px 16px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      border-right:1px solid rgba(11,27,42,.06);
-    }
+    .rbox{padding: 16px 16px;display:flex;align-items:center;gap:12px;border-right:1px solid rgba(11,27,42,.06);}
     .rbox:last-child{border-right:0}
-    .rbox .cap{
-      font-weight:900;
-      color:var(--ink);
-      opacity:.9;
-      font-size:16px;
-      margin-bottom: 4px;
-    }
-    .rbox .num{
-      font-weight:1000;
-      color: var(--brand);
-      font-size:40px;
-      letter-spacing:-.8px;
-      line-height:1;
-    }
-    .rbox svg{
-      width:22px;height:22px;
-      fill:none;stroke:var(--brand);stroke-width:2;
-      stroke-linecap:round;stroke-linejoin:round;
-    }
+    .rbox .cap{font-weight:900;color:var(--ink);opacity:.9;font-size:16px;margin-bottom: 4px;}
+    .rbox .num{font-weight:1000;color: var(--brand);font-size:40px;letter-spacing:-.8px;line-height:1;}
+    .rbox svg{width:22px;height:22px;fill:none;stroke:var(--brand);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 
-    .explain{margin-top: 10px;}
-    .explain h3{
-      margin: 24px 0 12px;
-      font-size:32px;
-      font-weight:1000;
-      letter-spacing:-.7px;
-    }
-    .explain p{
-      margin: 0 0 14px;
-      font-size:20px;
-      line-height:1.45;
-      color: var(--ink);
-      font-weight:750;
-      max-width: 62ch;
-    }
+    .explain h3{margin: 24px 0 12px;font-size:32px;font-weight:1000;letter-spacing:-.7px;}
+    .explain p{margin: 0 0 14px;font-size:20px;line-height:1.45;color: var(--ink);font-weight:750;max-width: 62ch;}
 
     .formgrid{display:grid;gap:14px;margin-top: 18px;}
     @media (min-width:720px){
       .formgrid{grid-template-columns: 1fr 1fr;}
       .formgrid .full{grid-column:1/-1;}
     }
-    .in{
-      width:100%;
-      height:60px;
-      border-radius: 10px;
-      border:2px solid #E0E4EA;
-      font-size:18px;
-      font-weight:850;
-      padding: 0 16px;
-      outline:none;
-      background:#fff;
-    }
+    .in{width:100%;height:60px;border-radius: 10px;border:2px solid #E0E4EA;font-size:18px;font-weight:850;padding: 0 16px;outline:none;background:#fff;}
     .in:focus{border-color: rgba(29,73,168,.55)}
-    .check{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding: 6px 2px;
-    }
-    .check input{
-      width:26px;height:26px;
-      accent-color: var(--brand);
-      margin-top: 2px;
-    }
-    .check .small{
-      font-size:16px;
-      color: var(--muted);
-      font-weight:750;
-      line-height:1.35;
-    }
+    .check{display:flex;gap:12px;align-items:flex-start;padding: 6px 2px;}
+    .check input{width:26px;height:26px;accent-color: var(--brand);margin-top: 2px;}
+    .check .small{font-size:16px;color: var(--muted);font-weight:750;line-height:1.35;}
 
-    .footer{
-      margin-top: 26px;
-      border-top:1px solid var(--line);
-      padding-top: 18px;
-      color: var(--muted);
-      font-weight:800;
-      font-size:13px;
-      text-align:center;
-    }
+    .footer{margin-top: 26px;border-top:1px solid var(--line);padding-top: 18px;color: var(--muted);font-weight:800;font-size:13px;text-align:center;}
   </style>
 </head>
 
@@ -464,14 +211,12 @@
         <p>Baseret på Harris-Benedict (revideret)</p>
       </div>
 
-      <!-- STEP 1 -->
       <section class="step active" id="step-1">
         <div class="section-title">Jeg vil gerne…</div>
 
         <div class="cards" id="goal-cards">
           <div class="cardopt selected" data-goal="maintain">
             <div class="ico" aria-hidden="true">
-              <!-- frugt -->
               <svg viewBox="0 0 24 24">
                 <path d="M8 7h6"/>
                 <path d="M9 7c0 6-1 7-3 9"/>
@@ -489,7 +234,6 @@
 
           <div class="cardopt" data-goal="gain">
             <div class="ico" aria-hidden="true">
-              <!-- biceps -->
               <svg viewBox="0 0 24 24">
                 <path d="M8 12c1-2 2-3 4-3 2 0 3 1 3 3v1c0 2-2 4-5 4H7c-2 0-3-1-3-3 0-1 .5-2 1.5-2.5"/>
                 <path d="M15 10c0-2 1-3 2-3 1 0 2 1 2 2 0 1-.5 2-1.5 3"/>
@@ -504,7 +248,6 @@
 
           <div class="cardopt" data-goal="cut">
             <div class="ico" aria-hidden="true">
-              <!-- badevægt -->
               <svg viewBox="0 0 24 24">
                 <path d="M6 20h12a2 2 0 0 0 2-2v-7a9 9 0 0 0-18 0v7a2 2 0 0 0 2 2Z"/>
                 <path d="M12 8a3 3 0 0 0-3 3"/>
@@ -524,12 +267,11 @@
         </div>
       </section>
 
-      <!-- STEP 2 -->
       <section class="step" id="step-2">
         <div class="section-title">Køn</div>
 
         <div class="grid2" id="gender-grid">
-          <div class="miniopt selected" data-gender="f" role="button" tabindex="0">
+          <div class="miniopt selected" data-gender="f">
             <div class="mi" aria-hidden="true">
               <svg viewBox="0 0 24 24">
                 <path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/>
@@ -540,7 +282,7 @@
             <div class="label">Kvinde</div>
           </div>
 
-          <div class="miniopt" data-gender="m" role="button" tabindex="0">
+          <div class="miniopt" data-gender="m">
             <div class="mi" aria-hidden="true">
               <svg viewBox="0 0 24 24">
                 <path d="M10 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/>
@@ -558,26 +300,17 @@
         </div>
 
         <div class="sliderblock">
-          <div class="slrow">
-            <div class="sltitle">Min alder</div>
-            <div class="slval" id="age-val">30</div>
-          </div>
+          <div class="slrow"><div class="sltitle">Min alder</div><div class="slval" id="age-val">30</div></div>
           <input id="age" type="range" min="14" max="80" value="30"/>
         </div>
 
         <div class="sliderblock">
-          <div class="slrow">
-            <div class="sltitle">Højde</div>
-            <div class="slval" id="height-val">175 cm</div>
-          </div>
+          <div class="slrow"><div class="sltitle">Højde</div><div class="slval" id="height-val">175 cm</div></div>
           <input id="height" type="range" min="140" max="210" value="175"/>
         </div>
 
         <div class="sliderblock">
-          <div class="slrow">
-            <div class="sltitle">Vægt</div>
-            <div class="slval" id="weight-val">80 kg</div>
-          </div>
+          <div class="slrow"><div class="sltitle">Vægt</div><div class="slval" id="weight-val">80 kg</div></div>
           <input id="weight" type="range" min="40" max="180" value="80"/>
         </div>
 
@@ -587,40 +320,15 @@
         </div>
       </section>
 
-      <!-- STEP 3 -->
       <section class="step" id="step-3">
         <div class="section-title">Mit aktivitetsniveau er…</div>
         <div class="subline">Vælg den mulighed der passer bedst på din hverdag.</div>
 
         <div class="cards" id="activity-cards">
-          <!-- James-agtige aktivitetsfaktorer -->
-          <div class="cardopt selected" data-activity="1.375">
-            <div class="txt">
-              <h3>Let aktiv</h3>
-              <p>Let motion 1–3 dage/uge</p>
-            </div>
-          </div>
-
-          <div class="cardopt" data-activity="1.55">
-            <div class="txt">
-              <h3>Moderat aktiv</h3>
-              <p>Træning 3–5 dage/uge</p>
-            </div>
-          </div>
-
-          <div class="cardopt" data-activity="1.725">
-            <div class="txt">
-              <h3>Meget aktiv</h3>
-              <p>Hård træning 6–7 dage/uge</p>
-            </div>
-          </div>
-
-          <div class="cardopt" data-activity="1.9">
-            <div class="txt">
-              <h3>Ekstra aktiv</h3>
-              <p>Fysisk job og/eller 2x træning</p>
-            </div>
-          </div>
+          <div class="cardopt selected" data-activity="1.375"><div class="txt"><h3>Let aktiv</h3><p>Let motion 1–3 dage/uge</p></div></div>
+          <div class="cardopt" data-activity="1.55"><div class="txt"><h3>Moderat aktiv</h3><p>Træning 3–5 dage/uge</p></div></div>
+          <div class="cardopt" data-activity="1.725"><div class="txt"><h3>Meget aktiv</h3><p>Hård træning 6–7 dage/uge</p></div></div>
+          <div class="cardopt" data-activity="1.9"><div class="txt"><h3>Ekstra aktiv</h3><p>Fysisk job og/eller 2x træning</p></div></div>
         </div>
 
         <div class="actions">
@@ -629,45 +337,27 @@
         </div>
       </section>
 
-      <!-- STEP 4 -->
       <section class="step" id="step-4">
         <div class="results-h">Din protein & kalorier</div>
 
         <div class="resultgrid">
           <div class="rbox">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 2c2 3 6 6 6 10a6 6 0 1 1-12 0c0-4 4-7 6-10Z"/>
-            </svg>
-            <div>
-              <div class="cap">Kalorier pr. dag</div>
-              <div class="num" id="kcal-out">—</div>
-            </div>
+            <svg viewBox="0 0 24 24"><path d="M12 2c2 3 6 6 6 10a6 6 0 1 1-12 0c0-4 4-7 6-10Z"/></svg>
+            <div><div class="cap">Kalorier pr. dag</div><div class="num" id="kcal-out">—</div></div>
           </div>
-
           <div class="rbox">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M8 12c1-2 2-3 4-3 2 0 3 1 3 3v1c0 2-2 4-5 4H7c-2 0-3-1-3-3 0-1 .5-2 1.5-2.5"/>
-            </svg>
-            <div>
-              <div class="cap">Protein pr. dag</div>
-              <div class="num" id="prot-out">—</div>
-            </div>
+            <svg viewBox="0 0 24 24"><path d="M8 12c1-2 2-3 4-3 2 0 3 1 3 3v1c0 2-2 4-5 4H7c-2 0-3-1-3-3 0-1 .5-2 1.5-2.5"/></svg>
+            <div><div class="cap">Protein pr. dag</div><div class="num" id="prot-out">—</div></div>
           </div>
         </div>
 
         <div class="sliderblock">
-          <div class="slrow">
-            <div class="sltitle">Protein pr. kg</div>
-            <div class="slval" id="ppk-val">1.8g</div>
-          </div>
+          <div class="slrow"><div class="sltitle">Protein pr. kg</div><div class="slval" id="ppk-val">1.8g</div></div>
           <input id="ppk" type="range" min="1.2" max="2.4" step="0.1" value="1.8"/>
         </div>
 
         <div class="sliderblock">
-          <div class="slrow">
-            <div class="sltitle">Kalorieunderskud</div>
-            <div class="slval" id="def-val">15%</div>
-          </div>
+          <div class="slrow"><div class="sltitle">Kalorieunderskud</div><div class="slval" id="def-val">15%</div></div>
           <input id="def" type="range" min="0" max="25" step="1" value="15"/>
         </div>
 
@@ -680,7 +370,6 @@
             Skriv din bedste email herunder, så sender jeg min forklaring og holder dig opdateret ved at tilmelde dig min mail-liste 😊
           </p>
 
-          <!-- MAILCHIMP FORM -->
           <form
             action="https://me.us15.list-manage.com/subscribe/post?u=a8c95bb1bd295a68546d88267&amp;id=1267d637b6&amp;f_id=008bc2e1f0"
             method="post"
@@ -695,16 +384,13 @@
 
               <div class="check full">
                 <input type="checkbox" id="consent" required />
-                <div class="small">
-                  Jeg accepterer at modtage emails med min anbefaling og tips. Du kan altid afmelde med ét klik.
-                </div>
+                <div class="small">Jeg accepterer at modtage emails med min anbefaling og tips. Du kan altid afmelde med ét klik.</div>
               </div>
 
-              <!-- Hidden fields -->
-             <input type="hidden" name="tags[]" value="Kalorieberegner 2026">
+              <!-- TAG + kalorier -->
+              <input type="hidden" name="tags" id="mce-TAGS" value="" />
               <input type="hidden" name="KALORIER" id="mce-KALORIER" value="" />
 
-              <!-- bot field -->
               <div aria-hidden="true" style="position:absolute;left:-5000px;">
                 <input type="text" name="b_a8c95bb1bd295a68546d88267_1267d637b6" tabindex="-1" value="">
               </div>
@@ -725,33 +411,32 @@
   </main>
 
   <script>
-    // ---------- State ----------
+    // ====== SKIFT DEN HER til dit rigtige Mailchimp TAG-ID ======
+    const TAG_ID = "2280"; // <-- ERSTAT MED DIT TAL-ID FOR "Kalorieberegner 2026"
+
     const state = {
-      goal: "maintain",     // maintain | gain | cut
-      gender: "f",          // f | m
+      goal: "maintain",
+      gender: "f",
       age: 30,
       heightCm: 175,
       weightKg: 80,
-      activity: 1.375,      // James-ish default
+      activity: 1.375,
       proteinPerKg: 1.8,
       deficitPct: 15,
     };
 
-    // ---------- Helpers ----------
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => Array.from(document.querySelectorAll(s));
 
     function showStep(n){
-      $$(".step").forEach(s => s.classList.remove("active"));
-      $("#step-" + n).classList.add("active");
+      $$(".step").forEach(x => x.classList.remove("active"));
+      $("#step-"+n).classList.add("active");
       window.scrollTo({top:0, behavior:"smooth"});
     }
-
     function setSelected(list, el){
       list.forEach(x => x.classList.remove("selected"));
       el.classList.add("selected");
     }
-
     function paintRange(input){
       const min = Number(input.min || 0);
       const max = Number(input.max || 100);
@@ -760,135 +445,82 @@
       input.style.background =
         `linear-gradient(90deg, var(--brand) 0%, var(--brand) ${pct}%, #E8EAEE ${pct}%, #E8EAEE 100%)`;
     }
+    function roundToNearest(n, step){ return Math.round(n / step) * step; }
 
-    function roundToNearest(n, step){
-      return Math.round(n / step) * step;
-    }
-
-    // ---------- Step 1: Goal ----------
+    // Step 1
     const goalCards = $$("#goal-cards .cardopt");
-    goalCards.forEach(card => {
-      card.addEventListener("click", () => {
-        setSelected(goalCards, card);
-        state.goal = card.getAttribute("data-goal");
-      });
-    });
+    goalCards.forEach(card => card.addEventListener("click", () => {
+      setSelected(goalCards, card);
+      state.goal = card.getAttribute("data-goal");
+    }));
     $("#to-step-2").addEventListener("click", () => showStep(2));
 
-    // ---------- Step 2: Gender + sliders ----------
+    // Step 2
     const genderCards = $$("#gender-grid .miniopt");
-    genderCards.forEach(card => {
-      card.addEventListener("click", () => {
-        setSelected(genderCards, card);
-        state.gender = card.getAttribute("data-gender");
-      });
-    });
+    genderCards.forEach(card => card.addEventListener("click", () => {
+      setSelected(genderCards, card);
+      state.gender = card.getAttribute("data-gender");
+    }));
 
     function syncStep2Text(){
       $("#age-val").textContent = String(state.age);
       $("#height-val").textContent = `${state.heightCm} cm`;
       $("#weight-val").textContent = `${state.weightKg} kg`;
     }
-
-    $("#age").addEventListener("input", (e) => {
-      state.age = Number(e.target.value);
-      syncStep2Text(); paintRange(e.target);
-    });
-    $("#height").addEventListener("input", (e) => {
-      state.heightCm = Number(e.target.value);
-      syncStep2Text(); paintRange(e.target);
-    });
-    $("#weight").addEventListener("input", (e) => {
-      state.weightKg = Number(e.target.value);
-      syncStep2Text(); paintRange(e.target);
-    });
+    $("#age").addEventListener("input", (e)=>{state.age=Number(e.target.value);syncStep2Text();paintRange(e.target);});
+    $("#height").addEventListener("input", (e)=>{state.heightCm=Number(e.target.value);syncStep2Text();paintRange(e.target);});
+    $("#weight").addEventListener("input", (e)=>{state.weightKg=Number(e.target.value);syncStep2Text();paintRange(e.target);});
 
     $("#to-step-3").addEventListener("click", () => showStep(3));
     $("#back-1").addEventListener("click", () => showStep(1));
 
-    // ---------- Step 3: Activity ----------
+    // Step 3
     const actCards = $$("#activity-cards .cardopt");
-    actCards.forEach(card => {
-      card.addEventListener("click", () => {
-        setSelected(actCards, card);
-        state.activity = Number(card.getAttribute("data-activity"));
-      });
-    });
+    actCards.forEach(card => card.addEventListener("click", () => {
+      setSelected(actCards, card);
+      state.activity = Number(card.getAttribute("data-activity"));
+    }));
     $("#back-2").addEventListener("click", () => showStep(2));
 
-    // ---------- Calculations (James-like) ----------
-    function bmrRevisedHarrisBenedict(){
-      const w = state.weightKg;
-      const h = state.heightCm;
-      const a = state.age;
-
-      // Revised Harris-Benedict (Roza & Shizgal)
-      // Men:    88.362 + 13.397W + 4.799H − 5.677A
-      // Women: 447.593 +  9.247W + 3.098H − 4.330A
-      if(state.gender === "m"){
-        return 88.362 + (13.397 * w) + (4.799 * h) - (5.677 * a);
-      }
-      return 447.593 + (9.247 * w) + (3.098 * h) - (4.330 * a);
+    // Calculation: Revised Harris-Benedict
+    function bmrHB(){
+      const w=state.weightKg, h=state.heightCm, a=state.age;
+      if(state.gender==="m") return 88.362 + (13.397*w) + (4.799*h) - (5.677*a);
+      return 447.593 + (9.247*w) + (3.098*h) - (4.330*a);
     }
-
-    function maintenanceCalories(){
-      return bmrRevisedHarrisBenedict() * state.activity;
-    }
-
+    function maintenance(){ return bmrHB() * state.activity; }
     function targetCalories(){
-      let kcal = maintenanceCalories();
-
-      // James-ish: gain = lille surplus; cut = deficit slider; maintain = mild (max 5% down)
-      if(state.goal === "gain"){
-        kcal = kcal * 1.08; // ~8% surplus
-      } else if(state.goal === "cut"){
-        kcal = kcal * (1 - (state.deficitPct / 100));
-      } else {
-        kcal = kcal * (1 - Math.min(state.deficitPct, 10) / 200);
-      }
-
-      // Round like many calculators: nearest 5
+      let kcal = maintenance();
+      if(state.goal==="gain") kcal *= 1.08;
+      else if(state.goal==="cut") kcal *= (1 - state.deficitPct/100);
+      else kcal *= (1 - Math.min(state.deficitPct,10)/200);
       return roundToNearest(kcal, 5);
     }
-
-    function targetProtein(){
-      return Math.round(state.weightKg * state.proteinPerKg);
-    }
+    function targetProtein(){ return Math.round(state.weightKg * state.proteinPerKg); }
 
     function updateResults(){
       const kcal = targetCalories();
-      const protein = targetProtein();
-
       $("#kcal-out").textContent = String(kcal);
-      $("#prot-out").textContent = `${protein}g`;
+      $("#prot-out").textContent = `${targetProtein()}g`;
       $("#mce-KALORIER").value = String(kcal);
+      $("#mce-TAGS").value = String(TAG_ID);
     }
 
-    // Results sliders
-    $("#ppk").addEventListener("input", (e) => {
+    $("#ppk").addEventListener("input",(e)=>{
       state.proteinPerKg = Number(e.target.value);
       $("#ppk-val").textContent = `${state.proteinPerKg.toFixed(1)}g`;
       updateResults(); paintRange(e.target);
     });
-
-    $("#def").addEventListener("input", (e) => {
+    $("#def").addEventListener("input",(e)=>{
       state.deficitPct = Number(e.target.value);
       $("#def-val").textContent = `${state.deficitPct}%`;
       updateResults(); paintRange(e.target);
     });
 
-    $("#calc").addEventListener("click", () => {
-      // Defaults pr. mål (James-feel)
-      if(state.goal === "gain"){
-        state.proteinPerKg = 2.0;
-        state.deficitPct = 0;
-      } else if(state.goal === "cut"){
-        state.proteinPerKg = 2.0;
-        state.deficitPct = 15;
-      } else {
-        state.proteinPerKg = 1.8;
-        state.deficitPct = 5;
-      }
+    $("#calc").addEventListener("click", ()=>{
+      if(state.goal==="gain"){state.proteinPerKg=2.0; state.deficitPct=0;}
+      else if(state.goal==="cut"){state.proteinPerKg=2.0; state.deficitPct=15;}
+      else {state.proteinPerKg=1.8; state.deficitPct=5;}
 
       $("#ppk").value = String(state.proteinPerKg);
       $("#def").value = String(state.deficitPct);
@@ -897,15 +529,13 @@
 
       updateResults();
       showStep(4);
-
-      paintRange($("#ppk"));
-      paintRange($("#def"));
+      paintRange($("#ppk")); paintRange($("#def"));
     });
 
-    $("#back-3").addEventListener("click", () => showStep(3));
-    $("#restart").addEventListener("click", () => showStep(1));
+    $("#back-3").addEventListener("click", ()=>showStep(3));
+    $("#restart").addEventListener("click", ()=>showStep(1));
 
-    $("#mc-form").addEventListener("submit", (e) => {
+    $("#mc-form").addEventListener("submit",(e)=>{
       updateResults();
       if(!$("#consent").checked){
         e.preventDefault();
@@ -913,14 +543,9 @@
       }
     });
 
-    // ---------- Init ----------
+    // init
     syncStep2Text();
-
-    ["#age","#height","#weight","#ppk","#def"].forEach(id => {
-      const el = $(id);
-      if(el) paintRange(el);
-    });
-
+    ["#age","#height","#weight","#ppk","#def"].forEach(id => { const el=$(id); if(el) paintRange(el); });
     updateResults();
   </script>
 </body>
