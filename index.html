@@ -3,270 +3,405 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kalorie- & Makroberegner</title>
-
-  <!-- Font (tættere på “James-feel”) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <title>Kalorieberegner – Oliver Hey Fitness</title>
   <style>
     :root{
-      --primary:#214CA7;              /* din blå fra logo */
-      --primary-2:#2C5BD0;
-      --bg:#ffffff;
-      --ink:#0B1B2B;                  /* mørk navy */
-      --muted:#667085;
-      --line:#E6E8EC;
-      --card:#ffffff;
-      --soft:#F6F8FC;
-      --shadow:0 14px 30px rgba(11,27,43,.08);
-      --radius:14px;
+      --primary:#1D49A8;          /* logo-blå */
+      --primary-2:#2C61D6;
+      --ink:#0B1B2A;
+      --muted:#6A7A89;
+      --bg:#F5F7FB;
+      --card:#FFFFFF;
+      --border:#E6EBF2;
+      --shadow: 0 16px 40px rgba(11,27,42,.08);
+      --radius: 14px;
+      --radius2: 18px;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--ink);
-      background:linear-gradient(180deg,#fff 0%, #fff 65%, #F7F9FD 100%);
+      background:var(--bg);
     }
 
-    /* Topbar (James-ish) */
+    /* Topbar */
     .topbar{
-      position:sticky; top:0; z-index:20;
-      background:rgba(255,255,255,.92);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(230,232,236,.6);
+      height:64px;
+      background:#fff;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:sticky;
+      top:0;
+      z-index:50;
     }
     .topbar-inner{
-      max-width:980px;
-      margin:0 auto;
-      padding:14px 18px;
+      width:min(980px, 92vw);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .brand-badge{
-      width:34px; height:34px;
-      border-radius:10px;
-      background:rgba(33,76,167,.10);
-      border:1px solid rgba(33,76,167,.18);
-      display:grid; place-items:center;
-      color:var(--primary);
-      font-weight:900;
-    }
-    .pill{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(33,76,167,.22);
-      background:rgba(33,76,167,.10);
-      color:var(--primary);
-      font-weight:700;
-      text-decoration:none;
-      user-select:none;
-    }
-
-    /* Layout */
-    .wrap{max-width:980px;margin:0 auto;padding:22px 18px 80px}
-    .panel{
-      max-width:720px;
-      margin:22px auto 0;
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:18px;
-      box-shadow:var(--shadow);
-      padding:26px 22px;
-    }
-    .center{text-align:center}
-    h1{
-      font-size:44px;
-      line-height:1.05;
-      margin:10px 0 10px;
-      letter-spacing:-.8px;
-    }
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.5;
-    }
-    .section-title{
-      margin:26px 0 8px;
-      font-size:20px;
-      letter-spacing:-.2px;
-    }
-    .section-hint{
-      margin:0 0 12px;
-      color:var(--primary);
-      font-weight:700;
-      font-size:14px;
-    }
-
-    /* Cards */
-    .cards{display:grid; gap:12px; margin-top:12px}
-    .card{
-      border:2px solid var(--line);
-      border-radius:16px;
-      padding:16px 16px;
       display:flex;
-      gap:14px;
       align-items:center;
-      cursor:pointer;
-      background:#fff;
-      transition:transform .06s ease, border-color .12s ease, box-shadow .12s ease;
+      gap:10px;
+      min-width: 0;
     }
-    .card:hover{transform:translateY(-1px)}
-    .card.active{
-      border-color:rgba(33,76,167,.75);
-      box-shadow:0 10px 24px rgba(33,76,167,.14);
-      background:rgba(33,76,167,.06);
-    }
-    .icon{
-      width:46px;height:46px;border-radius:14px;
-      border:1px solid rgba(33,76,167,.18);
-      background:rgba(33,76,167,.10);
-      display:grid;place-items:center;
-      color:var(--primary);
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 10px 20px rgba(29,73,168,.18);
       flex:0 0 auto;
     }
-    .card h3{margin:0;font-size:18px;letter-spacing:-.2px}
-    .card p{margin:3px 0 0;color:var(--muted);font-size:14px}
-
-    /* Two-up cards */
-    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    @media (max-width:640px){ .grid2{grid-template-columns:1fr} h1{font-size:36px} }
-
-    /* Slider blocks */
-    .row{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
-      margin-top:14px;
-    }
-    .label{font-weight:700}
-    .value{
+    .brand-title{
       font-weight:800;
-      color:var(--primary);
-      font-size:28px;
-      letter-spacing:-.6px;
+      letter-spacing:.2px;
+      font-size:14px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      opacity:.9;
     }
-    .unit{font-size:16px;font-weight:800;color:var(--primary); margin-left:4px}
-    input[type="range"]{width:100%; margin-top:10px; accent-color: var(--primary);}
-    .divider{height:1px;background:var(--line); margin:18px 0}
+    .pill-btn{
+      border:0;
+      background: rgba(29,73,168,.10);
+      color:var(--primary);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .menu{
+      width:44px;height:44px;border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+    }
+    .menu span{
+      width:18px;height:2px;background:var(--primary);
+      position:relative;display:block;border-radius:2px;
+    }
+    .menu span:before,.menu span:after{
+      content:"";
+      width:18px;height:2px;background:var(--primary);
+      position:absolute;left:0;border-radius:2px;
+    }
+    .menu span:before{top:-6px}
+    .menu span:after{top:6px}
+
+    /* Layout */
+    .wrap{
+      display:flex;
+      justify-content:center;
+      padding: 26px 0 60px;
+    }
+    .container{
+      width:min(980px, 92vw);
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    /* Title */
+    .hero{
+      text-align:center;
+      padding: 10px 8px 18px;
+    }
+    .hero h1{
+      margin: 10px 0 8px;
+      font-size: clamp(30px, 4.6vw, 44px);
+      letter-spacing:-.8px;
+      line-height:1.05;
+      font-weight: 900;
+    }
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    /* Steps */
+    .step{
+      display:none;
+      animation: fadeIn .18s ease-out;
+    }
+    .step.active{display:block}
+    @keyframes fadeIn{
+      from{opacity:0; transform: translateY(4px)}
+      to{opacity:1; transform: translateY(0)}
+    }
+
+    /* Options */
+    .section-title{
+      font-size:18px;
+      font-weight:900;
+      margin: 6px 0 10px;
+      letter-spacing:-.2px;
+    }
+    .subline{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-weight:650;
+      line-height:1.35;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 720px){
+      .grid.two{grid-template-columns: 1fr 1fr;}
+      .grid.three{grid-template-columns: 1fr 1fr 1fr;}
+    }
+
+    .opt{
+      border:2px solid #DCE4F3;
+      background:#fff;
+      border-radius: 14px;
+      padding: 14px 14px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      cursor:pointer;
+      transition: .15s ease;
+      user-select:none;
+    }
+    .opt:hover{
+      transform: translateY(-1px);
+      border-color: rgba(29,73,168,.35);
+      box-shadow: 0 10px 22px rgba(11,27,42,.06);
+    }
+    .opt.selected{
+      border-color: var(--primary);
+      background: rgba(29,73,168,.08);
+    }
+    .icon{
+      width:44px;height:44px;border-radius:12px;
+      border:1px solid rgba(29,73,168,.18);
+      background: rgba(29,73,168,.10);
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+    }
+    .icon svg{width:22px;height:22px; fill: none; stroke: var(--primary); stroke-width:2}
+    .opt h3{
+      margin:0;
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-.3px;
+    }
+    .opt p{
+      margin:3px 0 0;
+      color:var(--muted);
+      font-weight:650;
+      line-height:1.25;
+      font-size:13px;
+    }
+
+    /* Controls */
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:flex-end;
+    }
+    .field{
+      flex:1 1 210px;
+      min-width: 180px;
+    }
+    .label{
+      font-weight:900;
+      margin: 10px 0 8px;
+    }
+    .seg{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .seg button{
+      height:54px;
+      border-radius:14px;
+      border:2px solid #DCE4F3;
+      background:#fff;
+      cursor:pointer;
+      font-weight:900;
+      font-size:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      transition:.15s ease;
+    }
+    .seg button.active{
+      border-color: var(--primary);
+      background: rgba(29,73,168,.08);
+      color: var(--primary);
+      box-shadow: 0 10px 22px rgba(29,73,168,.12);
+    }
+
+    .slider-wrap{
+      margin-top: 8px;
+      padding: 6px 0 2px;
+    }
+    input[type="range"]{
+      width:100%;
+      accent-color: var(--primary);
+    }
+    .value{
+      float:right;
+      font-weight: 1000;
+      color: var(--primary);
+    }
 
     /* Buttons */
     .actions{
-      display:flex; gap:10px; margin-top:18px;
+      display:flex;
+      gap:12px;
+      margin-top: 18px;
       justify-content:space-between;
+      flex-wrap:wrap;
     }
     .btn{
-      width:100%;
-      height:52px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:#fff;
-      color:var(--ink);
-      font-weight:800;
+      border:0;
+      border-radius: 14px;
+      height:56px;
+      padding: 0 18px;
+      font-weight: 1000;
       cursor:pointer;
+      flex: 1 1 180px;
+      min-width: 140px;
     }
     .btn.primary{
-      border-color:rgba(33,76,167,.3);
-      background:linear-gradient(180deg, rgba(33,76,167,1) 0%, rgba(44,91,208,1) 100%);
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
       color:#fff;
-      box-shadow:0 14px 28px rgba(33,76,167,.22);
+      box-shadow: 0 16px 30px rgba(29,73,168,.18);
     }
-    .btn.primary:disabled{
-      opacity:.55; cursor:not-allowed; box-shadow:none;
-    }
-
-    .btn-link{
-      margin-top:10px;
-      text-align:center;
-      font-weight:700;
-      color:var(--primary);
-      cursor:pointer;
-      user-select:none;
+    .btn.ghost{
+      background: #fff;
+      border:2px solid #DCE4F3;
+      color: var(--primary);
     }
 
-    /* Result boxes */
-    .result-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:14px;
-    }
-    @media (max-width:640px){ .result-grid{grid-template-columns:1fr} }
-    .result-box{
-      border-radius:16px;
-      border:1px solid rgba(33,76,167,.18);
-      background:rgba(33,76,167,.08);
-      padding:16px 16px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .result-box .k{display:flex; gap:10px; align-items:center; color:var(--ink)}
-    .result-box .k small{display:block; color:var(--muted); font-weight:700}
-    .result-box .n{
-      font-weight:900;
-      color:var(--primary);
-      font-size:30px;
+    /* Results */
+    .results-head{
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 1000;
       letter-spacing:-.7px;
+      margin: 6px 0 12px;
+      text-align:center;
+    }
+    .metrics{
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background: #F2F6FF;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 12px 0 16px;
+    }
+    .metric{
+      padding: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border-right:1px solid rgba(11,27,42,.06);
+    }
+    .metric:last-child{border-right:0}
+    .metric .big{
+      font-size: 34px;
+      font-weight: 1000;
+      color: var(--primary);
+      line-height:1;
+    }
+    .metric .cap{
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .metric .stack{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+    }
+    .metric svg{width:18px;height:18px; stroke: var(--primary); fill:none; stroke-width:2}
+
+    /* Email box */
+    .explain{
+      margin-top: 14px;
+      padding-top: 6px;
+    }
+    .explain h3{
+      margin: 10px 0 8px;
+      font-size: 22px;
+      font-weight: 1000;
+      letter-spacing:-.3px;
+    }
+    .explain p{
+      margin: 0 0 12px;
+      color: var(--ink);
+      font-weight: 650;
+      line-height:1.45;
+      max-width: 68ch;
     }
 
-    /* Form */
-    .form{
-      margin-top:14px;
+    .form-grid{
       display:grid;
-      gap:12px;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 10px;
     }
-    .inputs2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    @media (max-width:640px){ .inputs2{grid-template-columns:1fr} }
-    .inp{
-      height:52px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      padding:0 14px;
-      font-size:16px;
+    @media (min-width:720px){
+      .form-grid{grid-template-columns: 1fr 1fr;}
+      .form-grid .full{grid-column:1 / -1;}
+    }
+    .in{
+      width:100%;
+      height:54px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border: 2px solid #DCE4F3;
+      font-weight: 800;
+      font-size: 15px;
       outline:none;
     }
-    .inp:focus{border-color:rgba(33,76,167,.5); box-shadow:0 0 0 4px rgba(33,76,167,.12)}
-    .consent{
-      display:flex; gap:10px; align-items:flex-start;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.4;
+    .in:focus{border-color: rgba(29,73,168,.55)}
+    .small{
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 12px;
+      line-height:1.35;
     }
-    .consent input{margin-top:3px; width:18px; height:18px; accent-color:var(--primary)}
-    .tiny{font-size:12px;color:var(--muted);margin-top:6px}
-
-    /* Success box (James-ish) */
-    .success{
-      margin-top:14px;
-      border-radius:18px;
-      border:1px solid rgba(33,76,167,.18);
-      background:rgba(33,76,167,.08);
-      padding:18px;
-      display:none;
-    }
-    .success .big{font-size:22px;font-weight:900; margin:6px 0}
-    .success .small{color:var(--muted); margin:0}
     .check{
-      width:58px;height:58px;border-radius:18px;
-      background:#fff;
-      border:1px solid rgba(33,76,167,.18);
-      display:grid;place-items:center;
-      box-shadow:0 10px 24px rgba(11,27,43,.08);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      margin-top: 8px;
+    }
+    .check input{
+      width:22px;height:22px;
+      accent-color: var(--primary);
+      margin-top:2px;
     }
 
-    /* Step visibility */
-    .step{display:none}
-    .step.active{display:block}
+    .footer{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 18px;
+      font-weight: 650;
+      font-size: 12px;
+    }
   </style>
 </head>
 
@@ -274,626 +409,505 @@
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <div class="brand-badge">OH</div>
-        <div>Oliver Hey Fitness</div>
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-title">OLIVER HEY FITNESS</div>
       </div>
-      <a class="pill" href="#signup">Tilmeld</a>
+      <button class="pill-btn" type="button">Join nu!</button>
+      <button class="menu" type="button" aria-label="Menu"><span></span></button>
     </div>
   </div>
 
   <div class="wrap">
-    <div class="center">
-      <h1>Kalorie- & Makroberegner</h1>
-      <p class="sub">Baseret på den reviderede Harris-Benedict-formel</p>
-    </div>
+    <div class="container">
+      <div class="hero">
+        <h1>Kalorieberegner</h1>
+        <p>Baseret på Harris-Benedict (revideret)</p>
+      </div>
 
-    <div class="panel">
-      <!-- STEP 1 -->
-      <section class="step active" id="step-1">
-        <div class="section-title">Jeg vil gerne…</div>
-        <p class="section-hint">Vælg det mål der passer bedst</p>
+      <div class="card">
 
-        <div class="cards" id="goalCards">
-          <div class="card active" data-goal="recomp">
-            <div class="icon" aria-hidden="true">
-              <!-- simple svg -->
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M7 22h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M9 22V9a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M8 10h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Opnå en lavere fedtprocent og mere muskelmasse</h3>
-              <p>Smid fedt og byg muskelmasse samtidig</p>
-            </div>
-          </div>
+        <!-- STEP 1 -->
+        <section class="step active" id="step-1">
+          <div class="section-title">Jeg vil gerne…</div>
+          <p class="subline"></p>
 
-          <div class="card" data-goal="gain">
-            <div class="icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M7 14c2 0 2-2 4-2s2 2 4 2 2-2 4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 15c0 4 3 7 6 7s6-3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M9 6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Bygge muskelmasse</h3>
-              <p>Tag muskelmasse på og bliv stærkere</p>
-            </div>
-          </div>
-
-          <div class="card" data-goal="lose">
-            <div class="icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M7 8l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7 16h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Tabe fedt</h3>
-              <p>Smid fedt og få mere overskud</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="btn primary" id="to2">Næste</button>
-        </div>
-      </section>
-
-      <!-- STEP 2 -->
-      <section class="step" id="step-2">
-        <div class="section-title">Grundinfo</div>
-
-        <div class="divider"></div>
-
-        <div class="grid2" id="genderCards">
-          <div class="card active" data-gender="female">
-            <div class="icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2a6 6 0 1 0 0 12a6 6 0 0 0 0-12Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 14v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M9 19h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Kvinde</h3>
-              <p>Bruges til at beregne dit BMR</p>
-            </div>
-          </div>
-
-          <div class="card" data-gender="male">
-            <div class="icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M14 2h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M22 2l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 8a7 7 0 1 0 6 6" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Mand</h3>
-              <p>Bruges til at beregne dit BMR</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="grid2" id="unitCards">
-          <div class="card active" data-units="metric">
-            <div class="icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M6 20V4h4v16H6Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M14 20V4h4v16h-4Z" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Metrisk</h3>
-              <p>cm / kg</p>
-            </div>
-          </div>
-          <div class="card" data-units="imperial">
-            <div class="icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M10 7v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M14 7v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M18 7v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div>
-              <h3>Imperial</h3>
-              <p>ft/in / lbs</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="row">
-          <div class="label">Alder</div>
-          <div class="value"><span id="ageVal">35</span></div>
-        </div>
-        <input id="age" type="range" min="15" max="80" value="35">
-
-        <div class="row">
-          <div class="label">Højde</div>
-          <div class="value"><span id="heightVal">170</span><span class="unit" id="heightUnit"> cm</span></div>
-        </div>
-        <input id="height" type="range" min="140" max="210" value="170">
-
-        <div class="row">
-          <div class="label">Vægt</div>
-          <div class="value"><span id="weightVal">100</span><span class="unit" id="weightUnit"> kg</span></div>
-        </div>
-        <input id="weight" type="range" min="40" max="200" value="100">
-
-        <div class="actions">
-          <button class="btn" id="back1">Tilbage</button>
-          <button class="btn primary" id="to3">Næste</button>
-        </div>
-      </section>
-
-      <!-- STEP 3 -->
-      <section class="step" id="step-3">
-        <div class="section-title">Mit aktivitetsniveau er…</div>
-        <p class="section-hint">Vælg det der passer bedst</p>
-
-        <div class="cards" id="activityCards">
-          <div class="card active" data-activity="1.375">
-            <div>
-              <h3>Let aktiv</h3>
-              <p>Let træning eller sport 1–3 dage/uge</p>
-            </div>
-          </div>
-
-          <div class="card" data-activity="1.55">
-            <div>
-              <h3>Moderat aktiv</h3>
-              <p>Træning 3–5 dage/uge</p>
-            </div>
-          </div>
-
-          <div class="card" data-activity="1.725">
-            <div>
-              <h3>Meget aktiv</h3>
-              <p>Hård træning 6–7 dage/uge</p>
-            </div>
-          </div>
-
-          <div class="card" data-activity="1.9">
-            <div>
-              <h3>Ekstra aktiv</h3>
-              <p>Meget hård træning + fysisk job / 2x træning</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="btn" id="back2">Tilbage</button>
-          <button class="btn primary" id="calc">Beregn</button>
-        </div>
-      </section>
-
-      <!-- STEP 4 -->
-      <section class="step" id="step-4">
-        <div class="section-title">Dine kalorier & protein</div>
-
-        <div class="result-grid">
-          <div class="result-box">
-            <div class="k">
-              <span aria-hidden="true">🔥</span>
+          <div class="grid">
+            <div class="opt selected" data-goal="maintain" id="goal-maintain">
+              <div class="icon" aria-hidden="true">
+                <!-- spark -->
+                <svg viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M4 12h6m8 0h6"/><path d="M7.5 7.5l4.5 4.5m4.5 4.5l-4.5-4.5M16.5 7.5 12 12"/></svg>
+              </div>
               <div>
-                <small>Kaloriemål</small>
-                <div style="font-weight:900">kcal / dag</div>
+                <h3>Hold vægten og få mere energi</h3>
+                <p>Stabil vægt, mere overskud og bedre vaner</p>
               </div>
             </div>
-            <div class="n" id="calOut">0</div>
-          </div>
 
-          <div class="result-box">
-            <div class="k">
-              <span aria-hidden="true">🍗</span>
+            <div class="opt" data-goal="gain" id="goal-gain">
+              <div class="icon" aria-hidden="true">
+                <!-- biceps -->
+                <svg viewBox="0 0 24 24"><path d="M8 12c1-2 2-3 4-3 2 0 3 1 3 3v1c0 2-2 4-5 4H7c-2 0-3-1-3-3 0-1 .5-2 1.5-2.5"/><path d="M15 10c0-2 1-3 2-3 1 0 2 1 2 2 0 1-.5 2-1.5 3"/><path d="M9 9c0-2 1-3 2-4"/></svg>
+              </div>
               <div>
-                <small>Proteinmål</small>
-                <div style="font-weight:900">gram / dag</div>
+                <h3>Byg muskelmasse og styrke</h3>
+                <p>Fokus på muskelopbygning og performance</p>
               </div>
             </div>
-            <div class="n" id="protOut">0g</div>
-          </div>
-        </div>
 
-        <div class="divider"></div>
-
-        <div class="row">
-          <div class="label">Protein pr. kg</div>
-          <div class="value"><span id="ppkVal">1.8</span><span class="unit"> g</span></div>
-        </div>
-        <input id="ppk" type="range" min="1.2" max="2.6" step="0.1" value="1.8">
-
-        <div class="row">
-          <div class="label">Kalorieunderskud</div>
-          <div class="value"><span id="defVal">15</span><span class="unit">%</span></div>
-        </div>
-        <input id="deficit" type="range" min="0" max="30" step="1" value="15">
-
-        <div class="divider"></div>
-
-        <div class="section-title">Lad mig forklare…</div>
-        <p class="sub" style="margin-top:8px">
-          Jeg bliver nødt til at forklare, hvorfor dette tal kan være anderledes end det, du har set i MyFitnessPal –
-          og hvorfor jeg ikke har givet dig et specifikt kulhydrat- eller fedtmål.
-        </p>
-        <p class="sub" style="margin-top:10px" id="signup">
-          Skriv din bedste email herunder, så sender jeg min forklaring og holder dig opdateret ved at tilmelde dig min motiverende mail-liste 😊
-        </p>
-
-        <!-- Mailchimp JSONP form -->
-        <form class="form" id="mcForm" novalidate>
-          <div class="inputs2">
-            <input class="inp" type="text" id="mcFname" placeholder="Fornavn (valgfrit)" autocomplete="given-name">
-            <input class="inp" type="text" id="mcLname" placeholder="Efternavn (valgfrit)" autocomplete="family-name">
-          </div>
-          <input class="inp" type="email" id="mcEmail" placeholder="Email (påkrævet)" autocomplete="email" required>
-
-          <label class="consent">
-            <input type="checkbox" id="mcConsent" checked>
-            <span>Ja tak – du må gerne sende mig emails med tips, træning og tilbud. Du kan afmelde når som helst.</span>
-          </label>
-
-          <button class="btn primary" id="mcSubmit" type="submit">Send</button>
-          <div class="tiny" id="mcMsg"></div>
-        </form>
-
-        <div class="success" id="successBox">
-          <div style="display:flex; gap:14px; align-items:center;">
-            <div class="check" aria-hidden="true">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-                <path d="M20 6L9 17l-5-5" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div>
-              <div class="big">Tak! Du er tilmeldt 🎉</div>
-              <p class="small">Hvis du ikke modtager mailen, så tjek gerne spam/uønsket post.</p>
+            <div class="opt" data-goal="cut" id="goal-cut">
+              <div class="icon" aria-hidden="true">
+                <!-- scale -->
+                <svg viewBox="0 0 24 24"><path d="M6 20h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z"/><path d="M12 10a3 3 0 0 0-3 3"/><path d="M12 10V8"/><path d="M9 13l-1 1"/></svg>
+              </div>
+              <div>
+                <h3>Smid fedt eller vægt</h3>
+                <p>Lavere fedtprocent – uden at smadre energien</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="actions">
-          <button class="btn" id="back3">Tilbage</button>
-          <button class="btn" id="restart">Start forfra</button>
-        </div>
-      </section>
+          <div class="actions">
+            <span></span>
+            <button class="btn primary" id="to-step-2" type="button">Næste</button>
+          </div>
+        </section>
+
+        <!-- STEP 2 -->
+        <section class="step" id="step-2">
+          <div class="section-title">Køn</div>
+          <div class="seg" style="margin-bottom:10px">
+            <button type="button" class="active" id="gender-f">Kvinde</button>
+            <button type="button" id="gender-m">Mand</button>
+          </div>
+
+          <div class="section-title" style="margin-top:18px">Måleenhed</div>
+          <div class="seg" style="margin-bottom:8px">
+            <button type="button" class="active" id="unit-metric">Metric</button>
+            <button type="button" id="unit-imperial">Imperial</button>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <div class="label">Alder <span class="value" id="age-val">30</span></div>
+              <div class="slider-wrap"><input id="age" type="range" min="14" max="80" value="30"/></div>
+            </div>
+
+            <div class="field">
+              <div class="label">Højde <span class="value" id="height-val">175 cm</span></div>
+              <div class="slider-wrap"><input id="height" type="range" min="140" max="210" value="175"/></div>
+            </div>
+
+            <div class="field">
+              <div class="label">Vægt <span class="value" id="weight-val">80 kg</span></div>
+              <div class="slider-wrap"><input id="weight" type="range" min="40" max="180" value="80"/></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn ghost" id="back-1" type="button">Tilbage</button>
+            <button class="btn primary" id="to-step-3" type="button">Næste</button>
+          </div>
+        </section>
+
+        <!-- STEP 3 -->
+        <section class="step" id="step-3">
+          <div class="section-title">Mit aktivitetsniveau er…</div>
+          <p class="subline">Vælg den mulighed der passer bedst på din hverdag.</p>
+
+          <div class="grid">
+            <div class="opt selected" data-activity="1.2">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 14c2-5 6-8 8-8s6 3 8 8"/><path d="M6 14h12"/><path d="M9 14v6m6-6v6"/></svg>
+              </div>
+              <div>
+                <h3>Let aktiv</h3>
+                <p>Let motion 1–3 dage/uge</p>
+              </div>
+            </div>
+
+            <div class="opt" data-activity="1.45">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 12h4l2-4 4 8 2-4h4"/><path d="M6 20h12"/></svg>
+              </div>
+              <div>
+                <h3>Moderat aktiv</h3>
+                <p>Træning 3–5 dage/uge</p>
+              </div>
+            </div>
+
+            <div class="opt" data-activity="1.65">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7 17l5-10 5 10"/><path d="M5 17h14"/></svg>
+              </div>
+              <div>
+                <h3>Meget aktiv</h3>
+                <p>Hård træning 6–7 dage/uge</p>
+              </div>
+            </div>
+
+            <div class="opt" data-activity="1.85">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M7 7h10"/><path d="M7 17h10"/><path d="M12 6v12"/></svg>
+              </div>
+              <div>
+                <h3>Ekstra aktiv</h3>
+                <p>Fysisk job og/eller 2x træning</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn ghost" id="back-2" type="button">Tilbage</button>
+            <button class="btn primary" id="calc" type="button">Beregn</button>
+          </div>
+        </section>
+
+        <!-- STEP 4 (RESULTS + EMAIL) -->
+        <section class="step" id="step-4">
+          <div class="results-head">Din protein & kalorier</div>
+
+          <div class="metrics">
+            <div class="metric">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2 3 6 6 6 10a6 6 0 1 1-12 0c0-4 4-7 6-10Z"/></svg>
+              <div class="stack">
+                <div class="cap">Kalorier pr. dag</div>
+                <div class="big" id="kcal-out">—</div>
+              </div>
+            </div>
+            <div class="metric">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14c2-5 6-8 8-8s6 3 8 8"/><path d="M6 14h12"/></svg>
+              <div class="stack">
+                <div class="cap">Protein pr. dag</div>
+                <div class="big" id="prot-out">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <div class="label">Protein pr. kg <span class="value" id="ppk-val">1.8 g</span></div>
+              <div class="slider-wrap">
+                <input id="ppk" type="range" min="1.2" max="2.4" step="0.1" value="1.8"/>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="label">Kalorieunderskud <span class="value" id="def-val">15%</span></div>
+              <div class="slider-wrap">
+                <input id="def" type="range" min="0" max="25" step="1" value="15"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="explain">
+            <h3>Jeg sender dig din personlige anbefaling</h3>
+            <p>
+              Jeg sender dig din personlige anbefaling og forklarer, hvorfor tallet ofte er anderledes end det, du ser i MyFitnessPal – og hvorfor jeg ikke fortæller dig præcist, hvor meget fedt og kulhydrat du skal spise.
+            </p>
+            <p>
+              Skriv din bedste email nedenfor, så sender jeg forklaringen + helt konkrete metoder til, hvordan du kan smide +5 kg fedt og bygge muskelmasse😄
+            </p>
+
+            <!-- MAILCHIMP FORM -->
+            <!-- IMPORTANT:
+              - "action" er din Mailchimp embed URL (behold den)
+              - tags: hvis din konto kræver TAG-ID (tal), så skal du bruge det i stedet for navnet.
+                Du siger det virker med "Kalorieberegner 2026" – så vi beholder det sådan.
+              - KALORIER (merge field) bliver sat automatisk før submit.
+            -->
+            <form
+              action="https://me.us15.list-manage.com/subscribe/post?u=a8c95bb1bd295a68546d88267&amp;id=1267d637b6&amp;f_id=008bc2e1f0"
+              method="post"
+              target="_blank"
+              novalidate
+              id="mc-form"
+            >
+              <div class="form-grid">
+                <input class="in" type="text" name="FNAME" id="mce-FNAME" placeholder="Fornavn" autocomplete="given-name" />
+                <input class="in" type="text" name="LNAME" id="mce-LNAME" placeholder="Efternavn" autocomplete="family-name" />
+                <input class="in full" type="email" name="EMAIL" id="mce-EMAIL" placeholder="Email" required autocomplete="email" />
+
+                <!-- Consent checkbox (valgfri – men ser “James-agtig” ud) -->
+                <div class="check full">
+                  <input type="checkbox" id="consent" required />
+                  <div class="small">
+                    Jeg accepterer at modtage emails med min anbefaling og tips. Du kan altid afmelde med ét klik.
+                  </div>
+                </div>
+
+                <!-- Hidden fields -->
+                <input type="hidden" name="tags" value="Kalorieberegner 2026" />
+                <input type="hidden" name="KALORIER" id="mce-KALORIER" value="" />
+
+                <!-- bot field -->
+                <div aria-hidden="true" style="position:absolute;left:-5000px;">
+                  <input type="text" name="b_a8c95bb1bd295a68546d88267_1267d637b6" tabindex="-1" value="">
+                </div>
+
+                <button class="btn primary full" type="submit" id="send-btn">Send</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="actions" style="margin-top:14px">
+            <button class="btn ghost" id="back-3" type="button">Tilbage</button>
+            <button class="btn ghost" id="restart" type="button">Start forfra</button>
+          </div>
+
+          <div class="footer">© Oliver Hey Fitness</div>
+        </section>
+
+      </div>
     </div>
   </div>
 
   <script>
-    // ----------------------------
-    // State
-    // ----------------------------
+    // ---------- State ----------
     const state = {
-      goal: "recomp",
-      gender: "female",
-      units: "metric",
-      age: 35,
-      heightCm: 170,
-      weightKg: 100,
-      activity: 1.375,
+      goal: "maintain",     // maintain | gain | cut
+      gender: "f",          // f | m
+      unit: "metric",       // metric | imperial
+      age: 30,
+      heightCm: 175,
+      weightKg: 80,
+      activity: 1.2,
       proteinPerKg: 1.8,
       deficitPct: 15,
-      calories: 0,
-      protein: 0
     };
 
-    // ----------------------------
-    // Helpers
-    // ----------------------------
-    function setActive(container, el){
-      [...container.querySelectorAll(".card")].forEach(c => c.classList.remove("active"));
-      el.classList.add("active");
-    }
+    // ---------- Helpers ----------
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
     function showStep(n){
-      [...document.querySelectorAll(".step")].forEach(s => s.classList.remove("active"));
-      document.getElementById(`step-${n}`).classList.add("active");
+      $$(".step").forEach(s => s.classList.remove("active"));
+      $("#step-" + n).classList.add("active");
       window.scrollTo({top:0, behavior:"smooth"});
     }
-    function kgFromLbs(lbs){ return lbs * 0.45359237; }
-    function cmFromIn(inch){ return inch * 2.54; }
 
-    // Revised Harris-Benedict BMR
-    // Male:   88.362 + 13.397*kg + 4.799*cm - 5.677*age
-    // Female: 447.593 + 9.247*kg + 3.098*cm - 4.330*age
-    function bmr({gender, kg, cm, age}){
-      if(gender === "male"){
-        return 88.362 + (13.397*kg) + (4.799*cm) - (5.677*age);
+    function setSelected(containerSel, itemSel){
+      $$(containerSel).forEach(el => el.classList.remove("selected"));
+      $(itemSel).classList.add("selected");
+    }
+
+    // ---------- Step 1 (Goal) ----------
+    $$(".opt[data-goal]").forEach(opt => {
+      opt.addEventListener("click", () => {
+        $$(".opt[data-goal]").forEach(o => o.classList.remove("selected"));
+        opt.classList.add("selected");
+        state.goal = opt.getAttribute("data-goal");
+      });
+    });
+
+    $("#to-step-2").addEventListener("click", () => showStep(2));
+
+    // ---------- Step 2 (Gender / Units / Sliders) ----------
+    function updateStep2Labels(){
+      $("#age-val").textContent = state.age;
+
+      if(state.unit === "metric"){
+        $("#height").min = 140; $("#height").max = 210; $("#height").step = 1;
+        $("#weight").min = 40;  $("#weight").max = 180; $("#weight").step = 1;
+        $("#height").value = state.heightCm;
+        $("#weight").value = state.weightKg;
+        $("#height-val").textContent = `${state.heightCm} cm`;
+        $("#weight-val").textContent = `${state.weightKg} kg`;
+      } else {
+        // convert stored metric values to approximate imperial ranges for UI
+        const heightIn = Math.round(state.heightCm / 2.54);
+        const weightLb = Math.round(state.weightKg * 2.20462);
+
+        $("#height").min = 55; $("#height").max = 83; $("#height").step = 1;  // ~140-210cm
+        $("#weight").min = 90; $("#weight").max = 400; $("#weight").step = 1; // ~40-180kg
+        $("#height").value = heightIn;
+        $("#weight").value = weightLb;
+
+        const ft = Math.floor(heightIn / 12);
+        const inch = heightIn % 12;
+        $("#height-val").textContent = `${ft}'${inch}"`;
+        $("#weight-val").textContent = `${weightLb} lb`;
       }
-      return 447.593 + (9.247*kg) + (3.098*cm) - (4.330*age);
     }
 
-    function goalAdjustment(goal){
-      // små, fornuftige justeringer (du kan ændre senere)
-      // recomp: lille underskud, gain: lille overskud, lose: større underskud
-      if(goal === "gain") return { type:"surplus", pct: 8 };
-      if(goal === "lose") return { type:"deficit", pct: 20 };
-      return { type:"deficit", pct: 10 };
+    function applyGenderButtons(){
+      $("#gender-f").classList.toggle("active", state.gender === "f");
+      $("#gender-m").classList.toggle("active", state.gender === "m");
     }
 
-    function compute(){
-      const kg = state.weightKg;
-      const cm = state.heightCm;
+    function applyUnitButtons(){
+      $("#unit-metric").classList.toggle("active", state.unit === "metric");
+      $("#unit-imperial").classList.toggle("active", state.unit === "imperial");
+    }
 
-      const base = bmr({gender: state.gender, kg, cm, age: state.age});
-      const tdee = base * state.activity;
+    $("#gender-f").addEventListener("click", () => { state.gender="f"; applyGenderButtons(); });
+    $("#gender-m").addEventListener("click", () => { state.gender="m"; applyGenderButtons(); });
 
-      // Goal baseline
-      const ga = goalAdjustment(state.goal);
-      let target = tdee;
+    $("#unit-metric").addEventListener("click", () => {
+      state.unit="metric";
+      applyUnitButtons();
+      updateStep2Labels();
+    });
+    $("#unit-imperial").addEventListener("click", () => {
+      state.unit="imperial";
+      applyUnitButtons();
+      updateStep2Labels();
+    });
 
-      if(ga.type === "surplus") target = tdee * (1 + ga.pct/100);
-      if(ga.type === "deficit") target = tdee * (1 - ga.pct/100);
+    $("#age").addEventListener("input", (e) => {
+      state.age = Number(e.target.value);
+      $("#age-val").textContent = state.age;
+    });
 
-      // User deficit slider applies extra fine-tuning (0–30%)
-      // For gain: deficit slider acts like "aggressiveness" but we clamp to not go under maintenance too much
-      const d = state.deficitPct/100;
+    $("#height").addEventListener("input", (e) => {
+      const v = Number(e.target.value);
+      if(state.unit === "metric"){
+        state.heightCm = v;
+        $("#height-val").textContent = `${state.heightCm} cm`;
+      } else {
+        // store back as cm
+        state.heightCm = Math.round(v * 2.54);
+        const ft = Math.floor(v / 12);
+        const inch = v % 12;
+        $("#height-val").textContent = `${ft}'${inch}"`;
+      }
+    });
+
+    $("#weight").addEventListener("input", (e) => {
+      const v = Number(e.target.value);
+      if(state.unit === "metric"){
+        state.weightKg = v;
+        $("#weight-val").textContent = `${state.weightKg} kg`;
+      } else {
+        state.weightKg = Math.round(v / 2.20462);
+        $("#weight-val").textContent = `${v} lb`;
+      }
+    });
+
+    $("#back-1").addEventListener("click", () => showStep(1));
+    $("#to-step-3").addEventListener("click", () => showStep(3));
+
+    // ---------- Step 3 (Activity) ----------
+    $$("#step-3 .opt[data-activity]").forEach(opt => {
+      opt.addEventListener("click", () => {
+        $$("#step-3 .opt[data-activity]").forEach(o => o.classList.remove("selected"));
+        opt.classList.add("selected");
+        state.activity = Number(opt.getAttribute("data-activity"));
+      });
+    });
+
+    $("#back-2").addEventListener("click", () => showStep(2));
+
+    // ---------- Calculations ----------
+    function bmr(){
+      // Mifflin-St Jeor
+      const w = state.weightKg;
+      const h = state.heightCm;
+      const a = state.age;
+      if(state.gender === "m"){
+        return (10*w) + (6.25*h) - (5*a) + 5;
+      }
+      return (10*w) + (6.25*h) - (5*a) - 161;
+    }
+
+    function goalMultiplier(){
+      // keep simple but effective
+      if(state.goal === "gain") return 1.08;     // small surplus
+      if(state.goal === "cut")  return 1.00;     // base before deficit slider
+      return 1.00;                               // maintain
+    }
+
+    function maintenanceCalories(){
+      return bmr() * state.activity;
+    }
+
+    function targetCalories(){
+      let kcal = maintenanceCalories() * goalMultiplier();
+
+      // deficit slider only really relevant for cut; for maintain/gain keep it mild
+      if(state.goal === "cut"){
+        kcal = kcal * (1 - (state.deficitPct/100));
+      } else if(state.goal === "maintain"){
+        // small nudge allowed
+        kcal = kcal * (1 - Math.min(state.deficitPct, 10)/200); // max 5% down
+      } else {
+        // gain: ignore deficit, keep a touch higher
+        kcal = kcal * (1 + 0.00);
+      }
+      return Math.round(kcal);
+    }
+
+    function targetProtein(){
+      return Math.round(state.weightKg * state.proteinPerKg);
+    }
+
+    function updateResults(){
+      const kcal = targetCalories();
+      const protein = targetProtein();
+
+      $("#kcal-out").textContent = kcal;
+      $("#prot-out").textContent = protein + "g";
+
+      // push calories to hidden Mailchimp field
+      $("#mce-KALORIER").value = String(kcal);
+    }
+
+    // results sliders
+    $("#ppk").addEventListener("input", (e) => {
+      state.proteinPerKg = Number(e.target.value);
+      $("#ppk-val").textContent = `${state.proteinPerKg.toFixed(1)} g`;
+      updateResults();
+    });
+
+    $("#def").addEventListener("input", (e) => {
+      state.deficitPct = Number(e.target.value);
+      $("#def-val").textContent = `${state.deficitPct}%`;
+      updateResults();
+    });
+
+    // calculate -> step 4
+    $("#calc").addEventListener("click", () => {
+      // set defaults depending on goal (James-feel)
       if(state.goal === "gain"){
-        target = Math.max(tdee * 0.95, target * (1 - (d*0.25))); // mild effect
+        state.proteinPerKg = 2.0;
+        state.deficitPct = 0;
+      } else if(state.goal === "cut"){
+        state.proteinPerKg = 2.0;
+        state.deficitPct = 15;
       } else {
-        target = target * (1 - d);
+        state.proteinPerKg = 1.8;
+        state.deficitPct = 5;
       }
+      $("#ppk").value = state.proteinPerKg;
+      $("#def").value = state.deficitPct;
+      $("#ppk-val").textContent = `${state.proteinPerKg.toFixed(1)} g`;
+      $("#def-val").textContent = `${state.deficitPct}%`;
 
-      const calories = Math.round(target);
-      const protein = Math.round(kg * state.proteinPerKg);
-
-      state.calories = calories;
-      state.protein = protein;
-
-      document.getElementById("calOut").textContent = calories;
-      document.getElementById("protOut").textContent = protein + "g";
-    }
-
-    // ----------------------------
-    // Wire UI (Step 1)
-    // ----------------------------
-    const goalCards = document.getElementById("goalCards");
-    goalCards.addEventListener("click", (e)=>{
-      const card = e.target.closest(".card");
-      if(!card) return;
-      setActive(goalCards, card);
-      state.goal = card.dataset.goal;
-    });
-
-    document.getElementById("to2").addEventListener("click", ()=> showStep(2));
-
-    // ----------------------------
-    // Step 2
-    // ----------------------------
-    const genderCards = document.getElementById("genderCards");
-    genderCards.addEventListener("click",(e)=>{
-      const card = e.target.closest(".card"); if(!card) return;
-      setActive(genderCards, card);
-      state.gender = card.dataset.gender;
-    });
-
-    const unitCards = document.getElementById("unitCards");
-    unitCards.addEventListener("click",(e)=>{
-      const card = e.target.closest(".card"); if(!card) return;
-      setActive(unitCards, card);
-      const newUnits = card.dataset.units;
-      if(newUnits === state.units) return;
-
-      // Convert current values when switching
-      if(newUnits === "imperial"){
-        // kg->lbs, cm->in (we keep internal in kg/cm but adjust sliders/ranges for user)
-        state.units = "imperial";
-        // slider values interpreted as imperial:
-        // We'll map to common ranges; for simplicity keep current internal but update UI labels.
-      } else {
-        state.units = "metric";
-      }
-      updateUnitUI();
-    });
-
-    const age = document.getElementById("age");
-    const height = document.getElementById("height");
-    const weight = document.getElementById("weight");
-
-    age.addEventListener("input", ()=>{
-      state.age = +age.value;
-      document.getElementById("ageVal").textContent = state.age;
-    });
-
-    function updateUnitUI(){
-      const hu = document.getElementById("heightUnit");
-      const wu = document.getElementById("weightUnit");
-      const hv = document.getElementById("heightVal");
-      const wv = document.getElementById("weightVal");
-
-      if(state.units === "metric"){
-        hu.textContent = " cm";
-        wu.textContent = " kg";
-
-        height.min = 140; height.max = 210; height.step = 1;
-        weight.min = 40;  weight.max = 200; weight.step = 1;
-
-        height.value = Math.round(state.heightCm);
-        weight.value = Math.round(state.weightKg);
-
-        hv.textContent = Math.round(state.heightCm);
-        wv.textContent = Math.round(state.weightKg);
-      } else {
-        // Show imperial inputs, but store internal in kg/cm
-        hu.textContent = " in";
-        wu.textContent = " lbs";
-
-        height.min = 55; height.max = 82; height.step = 1; // inches
-        weight.min = 90; weight.max = 440; weight.step = 1; // lbs
-
-        const inches = Math.round(state.heightCm / 2.54);
-        const lbs = Math.round(state.weightKg / 0.45359237);
-
-        height.value = inches;
-        weight.value = lbs;
-
-        hv.textContent = inches;
-        wv.textContent = lbs;
-      }
-    }
-
-    height.addEventListener("input", ()=>{
-      if(state.units === "metric"){
-        state.heightCm = +height.value;
-        document.getElementById("heightVal").textContent = state.heightCm;
-      } else {
-        const inches = +height.value;
-        state.heightCm = cmFromIn(inches);
-        document.getElementById("heightVal").textContent = inches;
-      }
-    });
-
-    weight.addEventListener("input", ()=>{
-      if(state.units === "metric"){
-        state.weightKg = +weight.value;
-        document.getElementById("weightVal").textContent = state.weightKg;
-      } else {
-        const lbs = +weight.value;
-        state.weightKg = kgFromLbs(lbs);
-        document.getElementById("weightVal").textContent = lbs;
-      }
-    });
-
-    document.getElementById("back1").addEventListener("click", ()=> showStep(1));
-    document.getElementById("to3").addEventListener("click", ()=> showStep(3));
-
-    // ----------------------------
-    // Step 3
-    // ----------------------------
-    const activityCards = document.getElementById("activityCards");
-    activityCards.addEventListener("click",(e)=>{
-      const card = e.target.closest(".card"); if(!card) return;
-      setActive(activityCards, card);
-      state.activity = +card.dataset.activity;
-    });
-
-    document.getElementById("back2").addEventListener("click", ()=> showStep(2));
-    document.getElementById("calc").addEventListener("click", ()=>{
-      compute();
+      updateResults();
       showStep(4);
     });
 
-    // ----------------------------
-    // Step 4 sliders
-    // ----------------------------
-    const ppk = document.getElementById("ppk");
-    const deficit = document.getElementById("deficit");
+    $("#back-3").addEventListener("click", () => showStep(3));
+    $("#restart").addEventListener("click", () => showStep(1));
 
-    ppk.addEventListener("input", ()=>{
-      state.proteinPerKg = +ppk.value;
-      document.getElementById("ppkVal").textContent = state.proteinPerKg.toFixed(1);
-      compute();
-    });
+    // ---------- Mailchimp form: require consent + ensure kcal field is updated ----------
+    $("#mc-form").addEventListener("submit", (e) => {
+      // ensure calories up to date
+      updateResults();
 
-    deficit.addEventListener("input", ()=>{
-      state.deficitPct = +deficit.value;
-      document.getElementById("defVal").textContent = state.deficitPct;
-      compute();
-    });
-
-    document.getElementById("back3").addEventListener("click", ()=> showStep(3));
-    document.getElementById("restart").addEventListener("click", ()=>{
-      // refresh for simplicity
-      location.reload();
-    });
-
-    // ----------------------------
-    // Mailchimp JSONP Signup (no redirect)
-    // ----------------------------
-    // Din action-URL fra Mailchimp embed:
-    const mcAction = "https://me.us15.list-manage.com/subscribe/post?u=a8c95bb1bd295a68546d88267&id=1267d637b6&f_id=008bc2e1f0";
-
-    function jsonp(url){
-      return new Promise((resolve)=>{
-        const cb = "mc_cb_" + Math.random().toString(16).slice(2);
-        window[cb] = (data)=>{ resolve(data); script.remove(); delete window[cb]; };
-        const script = document.createElement("script");
-        script.src = url + "&c=" + cb;
-        document.body.appendChild(script);
-      });
-    }
-
-    document.getElementById("mcForm").addEventListener("submit", async (e)=>{
-      e.preventDefault();
-      const msg = document.getElementById("mcMsg");
-      const success = document.getElementById("successBox");
-
-      msg.textContent = "";
-      success.style.display = "none";
-
-      const email = document.getElementById("mcEmail").value.trim();
-      const fname = document.getElementById("mcFname").value.trim();
-      const lname = document.getElementById("mcLname").value.trim();
-      const consent = document.getElementById("mcConsent").checked;
-
-      if(!email){
-        msg.textContent = "Skriv en gyldig email 🙂";
-        return;
-      }
-      if(!consent){
-        msg.textContent = "Du skal lige krydse af, før jeg må sende dig emails.";
+      if(!$("#consent").checked){
+        e.preventDefault();
+        alert("Sæt venligst flueben for at fortsætte 🙂");
         return;
       }
 
-      // Mailchimp JSONP endpoint
-      const jsonUrl = mcAction
-        .replace("/subscribe/post?", "/subscribe/post-json?")
-        .replace(/&amp;/g, "&");
-
-      // Build params (include tag + calories)
-      const params = new URLSearchParams();
-      params.set("EMAIL", email);
-      if(fname) params.set("FNAME", fname);
-      if(lname) params.set("LNAME", lname);
-
-      // Tag (som du sagde virker)
-      params.set("tags", "Kalorieberegner 2026");
-
-      // Gem kalorier i merge field "KALORIER"
-      params.set("KALORIER", String(state.calories));
-
-      // anti-bot field (tom)
-      params.set("b_a8c95bb1bd295a68546d88267_1267d637b6", "");
-
-      msg.textContent = "Sender…";
-
-      try{
-        const data = await jsonp(jsonUrl + "&" + params.toString());
-
-        // Mailchimp svarer typisk med result: "success" eller "error"
-        if(data.result === "success"){
-          msg.textContent = "";
-          success.style.display = "block";
-          document.getElementById("mcForm").style.display = "none";
-        } else {
-          // hvis double opt-in er slået til, kommer der ofte en “Almost finished…”
-          const raw = (data.msg || "").replace(/<[^>]*>/g,"").trim();
-          if(raw.toLowerCase().includes("almost finished") || raw.toLowerCase().includes("confirm")){
-            msg.textContent = "Tjek din indbakke og bekræft tilmeldingen (også spam/uønsket).";
-          } else if(raw.toLowerCase().includes("is already subscribed")){
-            msg.textContent = "Du er allerede tilmeldt ✅";
-          } else {
-            msg.textContent = raw || "Der skete en fejl. Prøv igen om lidt.";
-          }
-        }
-      }catch(err){
-        msg.textContent = "Der skete en fejl. Prøv igen om lidt.";
-      }
+      // if email empty, browser may show default validation – ok.
     });
 
-    // init
-    document.getElementById("ageVal").textContent = state.age;
-    updateUnitUI();
+    // ---------- Init ----------
+    applyGenderButtons();
+    applyUnitButtons();
+    updateStep2Labels();
+    updateResults();
   </script>
 </body>
 </html>
