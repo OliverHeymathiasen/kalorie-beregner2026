@@ -11,279 +11,286 @@
 
   <style>
     :root{
-      /* Oliver Hey blå (matcher logoet godt) */
+      /* ✅ Skift kun den her hvis du vil justere din blå */
       --brand:#1f4fd8;
-      --brand-weak:#eef3ff;
 
       --bg:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
+      --page:#ffffff;
+      --text:#0b1b2b;
+      --muted:#6b7a8a;
 
-      --card:#ffffff;
-      --border:#e5e7eb;
-      --shadow:0 10px 30px rgba(2,6,23,.08);
-      --radius:16px;
+      --tile:#ffffff;
+      --tileBorder:#e6e8ee;
+      --tileShadow:0 10px 28px rgba(15,23,42,.06);
+
+      --selectedBg:rgba(31,79,216,.08);
+      --selectedBorder:rgba(31,79,216,.9);
+
+      --btnShadow:0 14px 30px rgba(31,79,216,.18);
+
+      --radius:14px;
+      --radiusBig:16px;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--page);
       color:var(--text);
-      background:var(--bg);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
     }
 
-    .wrap{
-      max-width:720px;
+    /* --- Top header (James-ish) --- */
+    .top{
+      position:sticky;
+      top:0;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:saturate(180%) blur(10px);
+      border-bottom:1px solid #f0f2f6;
+      z-index:10;
+    }
+    .topInner{
+      max-width:760px;
       margin:0 auto;
-      padding:28px 18px 40px;
-    }
-
-    .topbar{
+      padding:14px 16px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      margin-bottom:18px;
     }
-
-    .brand{
+    .logo{
       display:flex;
       align-items:center;
       gap:10px;
       font-weight:800;
       letter-spacing:.2px;
     }
-    .dot{
-      width:36px;height:36px;border-radius:12px;
-      background:var(--brand);
-      box-shadow:0 10px 22px rgba(31,79,216,.25);
+    .mark{
+      width:34px;height:34px;border-radius:10px;
+      background:linear-gradient(135deg,var(--brand),rgba(31,79,216,.65));
+      box-shadow:0 12px 26px rgba(31,79,216,.18);
     }
+    .topActions{display:flex; align-items:center; gap:10px;}
+    .join{
+      border:0;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+      color:var(--brand);
+      background:rgba(31,79,216,.10);
+    }
+    .burger{
+      width:40px;height:40px;border-radius:999px;
+      border:1px solid #eef1f6;
+      background:#fff;
+      display:grid;place-items:center;
+      cursor:pointer;
+    }
+    .burger span{
+      width:18px;height:2px;background:#6c7a8a;display:block;border-radius:2px;
+      position:relative;
+    }
+    .burger span:before,.burger span:after{
+      content:"";position:absolute;left:0;width:18px;height:2px;background:#6c7a8a;border-radius:2px;
+    }
+    .burger span:before{top:-6px}
+    .burger span:after{top:6px}
 
-    .progress{
-      height:10px;
-      border-radius:999px;
-      background:#f1f5f9;
-      overflow:hidden;
-      flex:1;
-      margin-left:8px;
-      max-width:320px;
-    }
-    .progress > div{
-      height:100%;
-      width:20%;
-      background:var(--brand);
-      border-radius:999px;
-      transition:width .25s ease;
+    /* --- Layout --- */
+    .wrap{
+      max-width:760px;
+      margin:0 auto;
+      padding:18px 16px 44px;
     }
 
     h1{
-      font-size:34px;
-      line-height:1.15;
-      margin:18px 0 8px;
-      font-weight:800;
-      letter-spacing:-.02em;
+      font-size:38px;
+      line-height:1.08;
+      margin:22px 0 10px;
+      font-weight:900;
+      letter-spacing:-.03em;
     }
-
     .sub{
-      color:var(--muted);
       margin:0 0 18px;
+      color:var(--muted);
       font-size:15px;
       line-height:1.5;
     }
 
     .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px;
+      background:#fff;
+      border:1px solid #eef1f6;
+      border-radius:var(--radiusBig);
+      box-shadow:var(--tileShadow);
+      padding:14px;
     }
 
     .stack{display:flex; flex-direction:column; gap:14px}
 
-    .choice{
-      border:2px solid var(--border);
-      border-radius:14px;
+    /* --- James-ish tiles --- */
+    .tile{
+      display:flex;
+      align-items:center;
+      gap:14px;
       padding:16px;
+      border-radius:var(--radius);
+      border:2px solid var(--tileBorder);
+      background:var(--tile);
       cursor:pointer;
-      transition:.15s ease;
-      background:#fff;
-      user-select:none;
+      transition:.14s ease;
     }
-    .choice:hover{transform:translateY(-1px)}
-    .choice.active{
-      border-color:var(--brand);
-      background:var(--brand-weak);
+    .tile:hover{transform:translateY(-1px)}
+    .tile.active{
+      border-color:var(--selectedBorder);
+      background:var(--selectedBg);
     }
-    .choice h3{
-      margin:0 0 6px;
-      font-size:17px;
-      font-weight:800;
+    .ico{
+      width:36px;height:36px;
+      display:grid;place-items:center;
+      color:var(--brand);
+      flex:0 0 auto;
     }
-    .choice p{
+    .tile h3{
       margin:0;
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-.01em;
+    }
+    .tile p{
+      margin:4px 0 0;
       color:var(--muted);
       font-size:14px;
       line-height:1.35;
     }
 
-    .grid2{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width:520px){
-      .grid2{grid-template-columns:1fr}
-      h1{font-size:28px}
-    }
-
-    .pill{
-      border:2px solid var(--border);
-      border-radius:14px;
-      padding:14px 14px;
-      cursor:pointer;
-      text-align:center;
-      font-weight:800;
-      background:#fff;
-      transition:.15s ease;
-    }
-    .pill.active{
-      border-color:var(--brand);
-      background:var(--brand-weak);
-      color:var(--brand);
-    }
-
-    .row{
+    .labelRow{
       display:flex;
-      justify-content:space-between;
       align-items:flex-end;
+      justify-content:space-between;
       gap:12px;
-      margin-top:4px;
+      margin-top:6px;
     }
     .label{
-      font-weight:800;
-      margin:0 0 6px;
+      font-weight:900;
+      margin:0;
+      font-size:16px;
     }
     .value{
       font-weight:900;
       color:var(--brand);
       font-size:22px;
+      letter-spacing:-.02em;
     }
-    .muted{color:var(--muted); font-size:13px; margin:2px 0 0; line-height:1.4}
-
+    .hint{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
     input[type="range"]{
       width:100%;
+      margin-top:10px;
       accent-color:var(--brand);
     }
 
-    .btns{
-      display:flex;
-      gap:12px;
-      margin-top:16px;
-    }
-    .btn{
-      width:100%;
-      padding:15px 16px;
-      border-radius:14px;
-      border:2px solid var(--border);
+    /* Toggle pills (gender/units) */
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .pill{
+      border-radius:var(--radius);
+      border:2px solid var(--tileBorder);
       background:#fff;
+      padding:14px;
+      text-align:center;
       font-weight:900;
       cursor:pointer;
+      transition:.14s ease;
     }
-    .btn.primary{
-      background:var(--brand);
-      border-color:var(--brand);
-      color:#fff;
-      box-shadow:0 14px 28px rgba(31,79,216,.18);
-    }
-    .btn.link{
-      background:transparent;
-      border-color:transparent;
+    .pill.active{
+      border-color:var(--selectedBorder);
+      background:var(--selectedBg);
       color:var(--brand);
-      font-weight:900;
+    }
+    @media (max-width:520px){
+      .grid2{grid-template-columns:1fr}
+      h1{font-size:32px}
     }
 
+    /* Big bottom button like James */
+    .btnBar{margin-top:14px}
+    .btnPrimary{
+      width:100%;
+      border:0;
+      border-radius:12px;
+      padding:16px 16px;
+      font-weight:900;
+      font-size:16px;
+      background:var(--brand);
+      color:#fff;
+      cursor:pointer;
+      box-shadow:var(--btnShadow);
+    }
+    .btnLink{
+      width:100%;
+      border:0;
+      background:transparent;
+      color:var(--brand);
+      font-weight:900;
+      padding:12px 10px;
+      cursor:pointer;
+    }
+
+    /* Result tiles (James-ish) */
     .kpis{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
     }
     .kpi{
-      border-radius:14px;
-      background:var(--brand-weak);
+      border-radius:var(--radius);
       border:1px solid rgba(31,79,216,.18);
+      background:rgba(31,79,216,.08);
       padding:14px;
     }
     .kpi .k{
-      color:var(--muted);
-      font-weight:800;
-      font-size:13px;
       margin:0 0 6px;
+      color:var(--muted);
+      font-weight:900;
+      font-size:13px;
     }
     .kpi .v{
-      font-size:28px;
-      font-weight:900;
-      color:var(--brand);
-      letter-spacing:-.02em;
       margin:0;
+      color:var(--brand);
+      font-weight:900;
+      font-size:30px;
+      letter-spacing:-.03em;
     }
+    .divider{height:1px;background:#eef1f6;margin:12px 0}
 
-    .divider{
-      height:1px;
-      background:var(--border);
-      margin:14px 0;
-    }
-
-    .small{
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.55;
-    }
-
-    /* Mailchimp form styling */
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
+    /* Mailchimp form styling (clean) */
+    .formGrid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    .field{display:flex; flex-direction:column; gap:6px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:12.5px;color:var(--muted);font-weight:800}
     .field input{
-      padding:14px 12px;
       border-radius:12px;
-      border:2px solid var(--border);
+      border:2px solid var(--tileBorder);
+      padding:14px 12px;
       font-size:15px;
       outline:none;
+      background:#fff;
     }
     .field input:focus{
-      border-color:var(--brand);
+      border-color:var(--selectedBorder);
       box-shadow:0 0 0 4px rgba(31,79,216,.12);
     }
-    .field.full{grid-column:1/-1;}
-
     .check{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
+      display:flex; gap:10px; align-items:flex-start;
       margin-top:10px;
     }
     .check input{margin-top:2px; accent-color:var(--brand);}
-
-    .notice{
-      display:none;
-      margin-top:12px;
-      padding:12px;
-      border-radius:12px;
-      border:1px solid rgba(16,185,129,.35);
-      background:rgba(16,185,129,.08);
-      color:#064e3b;
-      font-weight:800;
-    }
+    .small{font-size:13px; color:var(--muted); line-height:1.55}
 
     .step{display:none}
     .step.active{display:block}
@@ -291,203 +298,248 @@
 </head>
 
 <body>
-  <div class="wrap">
-
-    <div class="topbar">
-      <div class="brand">
-        <div class="dot"></div>
-        <div>Oliver Hey Fitness</div>
+  <header class="top">
+    <div class="topInner">
+      <div class="logo">
+        <div class="mark" aria-hidden="true"></div>
       </div>
-      <div class="progress" aria-label="Progress">
-        <div id="progressBar"></div>
+      <div class="topActions">
+        <button class="join" type="button">Kom i gang</button>
+        <button class="burger" type="button" aria-label="Menu"><span></span></button>
       </div>
     </div>
+  </header>
+
+  <main class="wrap">
 
     <!-- STEP 1 -->
     <section class="step active" data-step="1">
       <h1>Kalorieberegner</h1>
-      <p class="sub">Baseret på Harris-Benedict (revideret). Vælg det mål, der passer bedst til dig.</p>
+      <p class="sub">Vælg dit mål, så beregner jeg et realistisk udgangspunkt.</p>
 
       <div class="card stack">
-        <div class="label">Hvad vil du opnå?</div>
-
-        <div class="choice active" data-goal="recomp">
-          <h3>Smid fedt og byg muskelmasse</h3>
-          <p>Opnå en lavere fedtprocent og mere muskelmasse</p>
+        <div class="tile active" data-goal="recomp">
+          <div class="ico" aria-hidden="true">
+            <!-- simple icon -->
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+              <path d="M7 20h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9 20c-2-2-3-5-3-8a6 6 0 1 1 12 0c0 3-1 6-3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Smid fedt og byg muskelmasse</h3>
+            <p>Opnå en lavere fedtprocent og mere muskelmasse</p>
+          </div>
         </div>
 
-        <div class="choice" data-goal="gain">
-          <h3>Byg muskelmasse</h3>
-          <p>Fokus på styrke, muskelopbygning og vægtøgning</p>
+        <div class="tile" data-goal="gain">
+          <div class="ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+              <path d="M7 14c2 0 2-4 4-4s2 4 4 4 2-4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M6 18h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Byg muskelmasse</h3>
+            <p>Styrke, muskelopbygning og vægtøgning</p>
+          </div>
         </div>
 
-        <div class="choice" data-goal="cut">
-          <h3>Smid fedt</h3>
-          <p>Vægttab med fokus på fedt – uden at miste muskelmasse</p>
+        <div class="tile" data-goal="cut">
+          <div class="ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 8c3-3 7-3 10 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 16c3 3 7 3 10 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Smid fedt</h3>
+            <p>Vægttab med fokus på fedt (og bevar muskler)</p>
+          </div>
         </div>
 
-        <button class="btn primary" id="next1">Næste</button>
+        <div class="btnBar">
+          <button class="btnPrimary" id="next1">Næste</button>
+        </div>
       </div>
     </section>
 
     <!-- STEP 2 -->
     <section class="step" data-step="2">
-      <h1>Grundlæggende oplysninger</h1>
-      <p class="sub">Det her bruger vi til at beregne dit daglige energibehov.</p>
+      <h1>Oplysninger</h1>
+      <p class="sub">Vi bruger det her til at beregne dit energibehov.</p>
 
       <div class="card stack">
-        <div class="label">Køn</div>
-        <div class="grid2">
-          <div class="pill active" data-gender="female">Kvinde</div>
-          <div class="pill" data-gender="male">Mand</div>
+        <div>
+          <p class="label">Køn</p>
+          <div class="grid2">
+            <div class="pill active" data-gender="female">Kvinde</div>
+            <div class="pill" data-gender="male">Mand</div>
+          </div>
         </div>
 
-        <div class="label" style="margin-top:8px;">Enheder</div>
-        <div class="grid2">
-          <div class="pill active" data-units="metric">Meter / kilo</div>
-          <div class="pill" data-units="imperial">Pund / tommer</div>
+        <div>
+          <p class="label">Enheder</p>
+          <div class="grid2">
+            <div class="pill active" data-units="metric">Meter / kilo</div>
+            <div class="pill" data-units="imperial">Pund / tommer</div>
+          </div>
         </div>
 
         <div class="divider"></div>
 
         <div>
-          <div class="row">
-            <div>
-              <div class="label">Alder</div>
-              <div class="muted">Hvor gammel er du?</div>
-            </div>
-            <div class="value"><span id="ageVal">35</span> år</div>
+          <div class="labelRow">
+            <p class="label">Alder</p>
+            <div class="value"><span id="ageVal">35</span></div>
           </div>
-          <input id="age" type="range" min="16" max="80" value="35" />
+          <input id="age" type="range" min="16" max="80" value="35">
         </div>
 
         <div>
-          <div class="row">
-            <div>
-              <div class="label">Højde</div>
-              <div class="muted">Din højde</div>
-            </div>
+          <div class="labelRow">
+            <p class="label">Højde</p>
             <div class="value"><span id="heightVal">170</span> <span id="heightUnit">cm</span></div>
           </div>
-          <input id="height" type="range" min="140" max="210" value="170" />
+          <input id="height" type="range" min="140" max="210" value="170">
         </div>
 
         <div>
-          <div class="row">
-            <div>
-              <div class="label">Vægt</div>
-              <div class="muted">Din kropsvægt</div>
-            </div>
+          <div class="labelRow">
+            <p class="label">Vægt</p>
             <div class="value"><span id="weightVal">80</span> <span id="weightUnit">kg</span></div>
           </div>
-          <input id="weight" type="range" min="40" max="180" value="80" />
+          <input id="weight" type="range" min="40" max="180" value="80">
         </div>
 
-        <div class="btns">
-          <button class="btn link" id="back2">Tilbage</button>
-          <button class="btn primary" id="next2">Næste</button>
-        </div>
+        <button class="btnLink" id="back2">Tilbage</button>
+        <button class="btnPrimary" id="next2">Næste</button>
       </div>
     </section>
 
     <!-- STEP 3 -->
     <section class="step" data-step="3">
-      <h1>Dit aktivitetsniveau</h1>
-      <p class="sub">Er du i tvivl? Vælg det, der passer bedst på din hverdag.</p>
+      <h1>Aktivitetsniveau</h1>
+      <p class="sub">Vælg det, der passer bedst på din hverdag.</p>
 
       <div class="card stack">
-        <div class="choice active" data-activity="light">
-          <h3>Let aktiv</h3>
-          <p>Let motion eller træning 1–3 gange om ugen</p>
-        </div>
-        <div class="choice" data-activity="moderate">
-          <h3>Moderat aktiv</h3>
-          <p>Træning 3–5 gange om ugen</p>
-        </div>
-        <div class="choice" data-activity="very">
-          <h3>Meget aktiv</h3>
-          <p>Hård træning 6–7 gange om ugen</p>
-        </div>
-        <div class="choice" data-activity="extra">
-          <h3>Ekstremt aktiv</h3>
-          <p>Meget hård træning, fysisk arbejde eller to daglige træningspas</p>
+        <div class="tile active" data-activity="light">
+          <div class="ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+              <path d="M7 14h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9 10h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Let aktiv</h3>
+            <p>Træning 1–3 gange om ugen</p>
+          </div>
         </div>
 
-        <div class="btns">
-          <button class="btn link" id="back3">Tilbage</button>
-          <button class="btn primary" id="calc">Beregn mit resultat</button>
+        <div class="tile" data-activity="moderate">
+          <div class="ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+              <path d="M6 15h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M8 11h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 7h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Moderat aktiv</h3>
+            <p>Træning 3–5 gange om ugen</p>
+          </div>
         </div>
+
+        <div class="tile" data-activity="very">
+          <div class="ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+              <path d="M5 16h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9 8h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Meget aktiv</h3>
+            <p>Hård træning 6–7 gange om ugen</p>
+          </div>
+        </div>
+
+        <div class="tile" data-activity="extra">
+          <div class="ico" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+              <path d="M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M6 13h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M8 9h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10 5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Ekstremt aktiv</h3>
+            <p>Fysisk arbejde eller 2 daglige pas</p>
+          </div>
+        </div>
+
+        <button class="btnLink" id="back3">Tilbage</button>
+        <button class="btnPrimary" id="calc">Beregn</button>
       </div>
     </section>
 
     <!-- STEP 4 -->
     <section class="step" data-step="4">
-      <h1>Dit daglige behov</h1>
-      <p class="sub">Her er dit udgangspunkt. Du kan justere protein og energi herunder.</p>
+      <h1>Dit resultat</h1>
+      <p class="sub">Du kan finjustere protein og energi her.</p>
 
       <div class="card stack">
         <div class="kpis">
           <div class="kpi">
-            <p class="k">Kaloriebehov</p>
-            <p class="v"><span id="calOut">—</span> <span style="font-size:16px; font-weight:900;">kcal</span></p>
+            <p class="k">Kalorier</p>
+            <p class="v"><span id="calOut">—</span></p>
           </div>
           <div class="kpi">
-            <p class="k">Proteinmål</p>
-            <p class="v"><span id="proteinOut">—</span> <span style="font-size:16px; font-weight:900;">g</span></p>
+            <p class="k">Protein</p>
+            <p class="v"><span id="proteinOut">—</span>g</p>
           </div>
         </div>
 
-        <div class="divider"></div>
-
         <div>
-          <div class="row">
-            <div>
-              <div class="label">Protein pr. kg kropsvægt</div>
-              <div class="muted">Et simpelt, effektivt mål at sigte efter</div>
-            </div>
-            <div class="value"><span id="ppkVal">1.8</span> g</div>
+          <div class="labelRow">
+            <p class="label">Protein pr. kg</p>
+            <div class="value"><span id="ppkVal">1.8</span>g</div>
           </div>
-          <input id="ppk" type="range" min="1.2" max="2.4" step="0.1" value="1.8" />
+          <input id="ppk" type="range" min="1.2" max="2.4" step="0.1" value="1.8">
+          <p class="hint">Typisk 1.6–2.2 g/kg for de fleste.</p>
         </div>
 
         <div>
-          <div class="row">
-            <div>
-              <div class="label" id="energyLabel">Kalorieunderskud</div>
-              <div class="muted" id="energyHint">Hvis du vil smide fedt, er underskud nøglen</div>
-            </div>
+          <div class="labelRow">
+            <p class="label" id="energyLabel">Kalorieunderskud</p>
             <div class="value"><span id="defSign">-</span><span id="defVal">15</span>%</div>
           </div>
-          <input id="deficit" type="range" min="0" max="30" step="1" value="15" />
-          <p class="small" style="margin-top:8px;">
-            <strong>Tip:</strong> Ved fedttab fungerer 10–20% underskud ofte bedst. Ved muskelopbygning er 5–10% overskud typisk nok.
-          </p>
+          <input id="energy" type="range" min="0" max="30" step="1" value="15">
+          <p class="hint" id="energyHint">10–20% underskud er et stærkt udgangspunkt.</p>
         </div>
 
-        <div class="btns">
-          <button class="btn link" id="back4">Tilbage</button>
-          <button class="btn primary" id="next4">Få forklaring på mail</button>
-        </div>
+        <button class="btnLink" id="back4">Tilbage</button>
+        <button class="btnPrimary" id="next4">Få forklaringen på mail</button>
       </div>
     </section>
 
     <!-- STEP 5 -->
     <section class="step" data-step="5">
-      <h1>Vil du have forklaringen?</h1>
-      <p class="sub">Så sender jeg dig en gennemgang af dit resultat og holder dig i loopet med mine mest motiverende mails 🙂</p>
+      <h1>Lad mig forklare…</h1>
+      <p class="sub">Indtast din email, så sender jeg dig forklaringen og holder dig i loopet 🙂</p>
 
       <div class="card stack">
-        <div>
-          <div class="label">Det vil jeg lige forklare…</div>
-          <p class="small" style="margin-top:6px;">
-            Jeg vil gerne forklare, hvorfor dette tal kan være anderledes end det, du har set i MyFitnessPal – og hvorfor jeg ikke har givet dig et fast mål for kulhydrat eller fedt.
-          </p>
-          <p class="small" style="margin-top:10px;">
-            Indtast din bedste email herunder, så sender jeg forklaringen og holder dig i loopet ved at tilmelde dig mit nyhedsbrev 🙂
-          </p>
-        </div>
+        <p class="small" style="margin:0;">
+          Jeg vil gerne forklare, hvorfor dette tal kan være anderledes end det, du har set i MyFitnessPal —
+          og hvorfor jeg ikke har givet dig et fast mål for kulhydrat eller fedt.
+        </p>
+        <p class="small" style="margin:0;">
+          Skriv din bedste email herunder, så sender jeg forklaringen og tilmelder dig mit nyhedsbrev 🙂
+        </p>
 
-        <!-- ✅ Mailchimp form (bevarer tag + KALORIER) -->
+        <!-- ✅ Mailchimp -->
         <form
           id="mcForm"
           action="https://me.us15.list-manage.com/subscribe/post?u=a8c95bb1bd295a68546d88267&amp;id=1267d637b6&amp;f_id=008bc2e1f0"
@@ -495,23 +547,20 @@
           target="_blank"
           novalidate
         >
-          <!-- ✅ Tag (din tidligere: 303) -->
           <input type="hidden" name="tags" value="303">
-
-          <!-- ✅ Merge field til kalorier -->
           <input type="hidden" name="KALORIER" id="mce-KALORIER" value="">
 
-          <div class="form-grid">
+          <div class="formGrid">
             <div class="field">
-              <label class="small" for="mce-FNAME">Fornavn (valgfrit)</label>
+              <label for="mce-FNAME">Fornavn (valgfrit)</label>
               <input id="mce-FNAME" name="FNAME" type="text" placeholder="Fornavn">
             </div>
             <div class="field">
-              <label class="small" for="mce-LNAME">Efternavn (valgfrit)</label>
+              <label for="mce-LNAME">Efternavn (valgfrit)</label>
               <input id="mce-LNAME" name="LNAME" type="text" placeholder="Efternavn">
             </div>
             <div class="field full">
-              <label class="small" for="mce-EMAIL">Email (påkrævet)</label>
+              <label for="mce-EMAIL">Email (påkrævet)</label>
               <input id="mce-EMAIL" name="EMAIL" type="email" required placeholder="Email adresse">
             </div>
           </div>
@@ -519,66 +568,52 @@
           <div class="check">
             <input id="consent" type="checkbox" required>
             <label for="consent" class="small">
-              Jeg accepterer at modtage emails med tips, guides og inspiration om fedttab og muskelopbygning.
+              Jeg accepterer at modtage emails med tips og guides om fedttab og muskelopbygning.
             </label>
           </div>
 
-          <button class="btn primary" type="submit" style="margin-top:14px;">
-            Send min forklaring
-          </button>
-
-          <div class="notice" id="localNotice">
-            Perfekt — tjek din indbakke (og spam/promotions) om lidt 💪
-          </div>
-
-          <!-- Honeypot (ok at have) -->
           <div aria-hidden="true" style="position:absolute;left:-5000px;">
             <input type="text" name="b_a8c95bb1bd295a68546d88267_1267d637b6" tabindex="-1" value="">
           </div>
+
+          <button class="btnPrimary" type="submit" style="margin-top:12px;">Send</button>
         </form>
 
-        <div class="btns">
-          <button class="btn link" id="back5">Tilbage</button>
-          <button class="btn" id="restart">Start forfra</button>
-        </div>
+        <button class="btnLink" id="back5">Tilbage</button>
       </div>
     </section>
 
-  </div>
+  </main>
 
   <script>
     // ---------- State ----------
     const state = {
       step: 1,
-      goal: 'recomp',          // recomp | gain | cut
-      gender: 'female',        // female | male
-      units: 'metric',         // metric | imperial
+      goal: 'recomp',     // recomp | gain | cut
+      gender: 'female',   // female | male
+      units: 'metric',    // metric | imperial
       age: 35,
       heightCm: 170,
       weightKg: 80,
-      activity: 'light',       // light | moderate | very | extra
+      activity: 'light',  // light | moderate | very | extra
       ppk: 1.8,
-      energyPct: 10,           // For gain = overskud %, for cut/recomp = underskud %
+      energyPct: 10,      // gain=overskud(+), ellers underskud(-)
       calories: null,
       protein: null,
     };
 
-    // ---------- Helpers ----------
-    const $ = (sel) => document.querySelector(sel);
-    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+    const $ = (s)=>document.querySelector(s);
+    const $$ = (s)=>Array.from(document.querySelectorAll(s));
 
     function showStep(n){
       state.step = n;
-      $$('.step').forEach(s => s.classList.remove('active'));
+      $$('.step').forEach(x=>x.classList.remove('active'));
       document.querySelector(`.step[data-step="${n}"]`).classList.add('active');
-
-      const pct = (n / 5) * 100;
-      $('#progressBar').style.width = pct + '%';
-      window.scrollTo({top:0, behavior:'smooth'});
+      window.scrollTo({top:0,behavior:'smooth'});
     }
 
-    function setActive(selector, el){
-      $$(selector).forEach(x => x.classList.remove('active'));
+    function setActive(groupSelector, el){
+      $$(groupSelector).forEach(x=>x.classList.remove('active'));
       el.classList.add('active');
     }
 
@@ -592,92 +627,80 @@
       }
     }
 
-    // Revised Harris-Benedict (approx.)
-    function bmrHarrisBenedictRevised({gender, weightKg, heightCm, age}){
+    function bmrHB({gender, weightKg, heightCm, age}){
+      // revised Harris-Benedict
       if(gender === 'male'){
         return 88.362 + (13.397 * weightKg) + (4.799 * heightCm) - (5.677 * age);
       }
       return 447.593 + (9.247 * weightKg) + (3.098 * heightCm) - (4.330 * age);
     }
-
-    function round(n){ return Math.round(n); }
+    const round = (n)=>Math.round(n);
 
     function updateEnergyUI(){
-      const energyLabel = $('#energyLabel');
-      const energyHint  = $('#energyHint');
-      const defSign     = $('#defSign');
+      const label = $('#energyLabel');
+      const hint  = $('#energyHint');
+      const sign  = $('#defSign');
 
       if(state.goal === 'gain'){
-        energyLabel.textContent = 'Kalorieoverskud';
-        energyHint.textContent  = 'Et lille overskud hjælper dig med at bygge muskler';
-        defSign.textContent     = '+';
+        label.textContent = 'Kalorieoverskud';
+        hint.textContent  = '5–10% overskud er typisk nok til muskelopbygning.';
+        sign.textContent  = '+';
       } else {
-        energyLabel.textContent = 'Kalorieunderskud';
-        energyHint.textContent  = 'Hvis du vil smide fedt, er underskud nøglen';
-        defSign.textContent     = '-';
+        label.textContent = 'Kalorieunderskud';
+        hint.textContent  = '10–20% underskud er et stærkt udgangspunkt.';
+        sign.textContent  = '-';
       }
 
       $('#defVal').textContent = state.energyPct;
-      $('#deficit').value = state.energyPct;
+      $('#energy').value = state.energyPct;
     }
 
-    function recalcOutputs(){
-      const bmr = bmrHarrisBenedictRevised({
-        gender: state.gender,
-        weightKg: state.weightKg,
-        heightCm: state.heightCm,
-        age: state.age
-      });
-
+    function recalc(){
+      const bmr = bmrHB({gender:state.gender, weightKg:state.weightKg, heightCm:state.heightCm, age:state.age});
       const tdee = bmr * activityMultiplier(state.activity);
 
       let target = tdee;
-
       if(state.goal === 'gain'){
-        // overskud
         target = tdee * (1 + state.energyPct/100);
       } else {
-        // underskud
         target = tdee * (1 - state.energyPct/100);
       }
 
       const protein = state.weightKg * state.ppk;
 
       state.calories = round(target);
-      state.protein  = round(protein);
+      state.protein = round(protein);
 
       $('#calOut').textContent = state.calories;
       $('#proteinOut').textContent = state.protein;
 
-      // Mailchimp merge field
+      // Mailchimp merge
       $('#mce-KALORIER').value = String(state.calories);
     }
 
-    // ---------- Step 1 (Goal) ----------
-    $$('.step[data-step="1"] .choice').forEach(el=>{
+    // ---- Step 1 goal tiles ----
+    $$('.step[data-step="1"] .tile').forEach(el=>{
       el.addEventListener('click', ()=>{
-        setActive('.step[data-step="1"] .choice', el);
+        setActive('.step[data-step="1"] .tile', el);
         state.goal = el.dataset.goal;
 
-        // Defaults per mål
-        if(state.goal === 'gain')  state.energyPct = 7;   // +7% overskud
-        if(state.goal === 'recomp') state.energyPct = 10; // -10%
-        if(state.goal === 'cut')    state.energyPct = 15; // -15%
+        // defaults per mål (som James logik)
+        if(state.goal === 'gain') state.energyPct = 7;     // +7%
+        if(state.goal === 'recomp') state.energyPct = 10;  // -10%
+        if(state.goal === 'cut') state.energyPct = 15;     // -15%
 
         updateEnergyUI();
       });
     });
+    $('#next1').addEventListener('click', ()=>showStep(2));
 
-    $('#next1').addEventListener('click', ()=> showStep(2));
-
-    // ---------- Step 2 (Basics) ----------
+    // ---- Step 2 pills ----
     $$('.pill[data-gender]').forEach(el=>{
       el.addEventListener('click', ()=>{
         setActive('.pill[data-gender]', el);
         state.gender = el.dataset.gender;
       });
     });
-
     $$('.pill[data-units]').forEach(el=>{
       el.addEventListener('click', ()=>{
         setActive('.pill[data-units]', el);
@@ -686,13 +709,11 @@
         if(state.units === 'metric'){
           $('#heightUnit').textContent = 'cm';
           $('#weightUnit').textContent = 'kg';
-
           $('#height').min = 140; $('#height').max = 210; $('#height').step = 1;
           $('#weight').min = 40;  $('#weight').max = 180; $('#weight').step = 1;
 
           $('#height').value = Math.round(state.heightCm);
           $('#weight').value = Math.round(state.weightKg);
-
           $('#heightVal').textContent = Math.round(state.heightCm);
           $('#weightVal').textContent = Math.round(state.weightKg);
         } else {
@@ -707,19 +728,18 @@
 
           $('#height').value = Math.round(inches);
           $('#weight').value = Math.round(lbs);
-
           $('#heightVal').textContent = Math.round(inches);
           $('#weightVal').textContent = Math.round(lbs);
         }
       });
     });
 
-    $('#age').addEventListener('input', (e)=>{
+    $('#age').addEventListener('input', e=>{
       state.age = +e.target.value;
       $('#ageVal').textContent = state.age;
     });
 
-    $('#height').addEventListener('input', (e)=>{
+    $('#height').addEventListener('input', e=>{
       const v = +e.target.value;
       if(state.units === 'metric'){
         state.heightCm = v;
@@ -730,7 +750,7 @@
       }
     });
 
-    $('#weight').addEventListener('input', (e)=>{
+    $('#weight').addEventListener('input', e=>{
       const v = +e.target.value;
       if(state.units === 'metric'){
         state.weightKg = v;
@@ -741,66 +761,56 @@
       }
     });
 
-    $('#back2').addEventListener('click', ()=> showStep(1));
-    $('#next2').addEventListener('click', ()=> showStep(3));
+    $('#back2').addEventListener('click', ()=>showStep(1));
+    $('#next2').addEventListener('click', ()=>showStep(3));
 
-    // ---------- Step 3 (Activity) ----------
-    $$('.step[data-step="3"] .choice').forEach(el=>{
+    // ---- Step 3 activity tiles ----
+    $$('.step[data-step="3"] .tile').forEach(el=>{
       el.addEventListener('click', ()=>{
-        setActive('.step[data-step="3"] .choice', el);
+        setActive('.step[data-step="3"] .tile', el);
         state.activity = el.dataset.activity;
       });
     });
 
-    $('#back3').addEventListener('click', ()=> showStep(2));
-
+    $('#back3').addEventListener('click', ()=>showStep(2));
     $('#calc').addEventListener('click', ()=>{
-      // Sørg for at UI matcher det valgte mål (plus/minus)
       updateEnergyUI();
-      // Protein slider
       $('#ppk').value = state.ppk;
       $('#ppkVal').textContent = state.ppk.toFixed(1);
-      // Beregn outputs
-      recalcOutputs();
+      recalc();
       showStep(4);
     });
 
-    // Step 4 controls
-    $('#ppk').addEventListener('input', (e)=>{
+    // ---- Step 4 sliders ----
+    $('#ppk').addEventListener('input', e=>{
       state.ppk = +e.target.value;
       $('#ppkVal').textContent = state.ppk.toFixed(1);
-      recalcOutputs();
+      recalc();
     });
 
-    $('#deficit').addEventListener('input', (e)=>{
+    $('#energy').addEventListener('input', e=>{
       state.energyPct = +e.target.value;
       $('#defVal').textContent = state.energyPct;
-      recalcOutputs();
+      recalc();
     });
 
-    $('#back4').addEventListener('click', ()=> showStep(3));
+    $('#back4').addEventListener('click', ()=>showStep(3));
     $('#next4').addEventListener('click', ()=>{
-      recalcOutputs();
+      recalc();
       showStep(5);
     });
 
-    // Step 5
-    $('#back5').addEventListener('click', ()=> showStep(4));
-    $('#restart').addEventListener('click', ()=> location.reload();
+    // ---- Step 5 ----
+    $('#back5').addEventListener('click', ()=>showStep(4));
 
-    // Consent checkbox: block submit if unchecked
     $('#mcForm').addEventListener('submit', (e)=>{
       if(!$('#consent').checked){
         e.preventDefault();
         alert('Du skal acceptere at modtage emails for at få forklaringen 🙏');
-        return;
       }
-      // Local confirmation (Mailchimp åbner i ny fane)
-      $('#localNotice').style.display = 'block';
     });
 
-    // Init
-    $('#progressBar').style.width = '20%';
+    // init
     updateEnergyUI();
   </script>
 </body>
