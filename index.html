@@ -381,20 +381,19 @@
               <input class="in" type="text" name="FNAME" id="mce-FNAME" placeholder="Fornavn" autocomplete="given-name" />
               <input class="in" type="text" name="LNAME" id="mce-LNAME" placeholder="Efternavn" autocomplete="family-name" />
               <input class="in full" type="email" name="EMAIL" id="mce-EMAIL" placeholder="Email" required autocomplete="email" />
-              <!-- SOURCE til Mailchimp (VIGTIGT) -->
-<input type="hidden" name="SOURCE" value="Kalorieberegner 2026">
-<input type="hidden" name="MMERGE5" value="Kalorieberegner 2026">
-
-
 
               <div class="check full">
                 <input type="checkbox" id="consent" required />
-                <div class="small">Jeg accepterer at modtage emails med min anbefaling og tips. Du kan altid afmelde med ét klik.</div>
+                <div class="small">
+                  Jeg accepterer at modtage emails med min anbefaling og tips. Du kan altid afmelde med ét klik.
+                </div>
               </div>
 
-              <!-- TAG + kalorier -->
-              <input type="hidden" name="tags" id="mce-TAGS" value="" />
+              <!-- Hidden fields (Mailchimp fix - KUN teknisk) -->
               <input type="hidden" name="KALORIER" id="mce-KALORIER" value="" />
+
+              <!-- HER ER DEN ENESTE VIGTIGE RETTELSE: MERGE8 -->
+              <input type="hidden" name="MERGE8" id="mce-MERGE8" value="Kalorieberegner 2026" />
 
               <div aria-hidden="true" style="position:absolute;left:-5000px;">
                 <input type="text" name="b_a8c95bb1bd295a68546d88267_1267d637b6" tabindex="-1" value="">
@@ -416,9 +415,6 @@
   </main>
 
   <script>
-    // ====== SKIFT DEN HER til dit rigtige Mailchimp TAG-ID ======
-    const TAG_ID = "2280"; // <-- ERSTAT MED DIT TAL-ID FOR "Kalorieberegner 2026"
-
     const state = {
       goal: "maintain",
       gender: "f",
@@ -452,7 +448,6 @@
     }
     function roundToNearest(n, step){ return Math.round(n / step) * step; }
 
-    // Step 1
     const goalCards = $$("#goal-cards .cardopt");
     goalCards.forEach(card => card.addEventListener("click", () => {
       setSelected(goalCards, card);
@@ -460,7 +455,6 @@
     }));
     $("#to-step-2").addEventListener("click", () => showStep(2));
 
-    // Step 2
     const genderCards = $$("#gender-grid .miniopt");
     genderCards.forEach(card => card.addEventListener("click", () => {
       setSelected(genderCards, card);
@@ -472,14 +466,14 @@
       $("#height-val").textContent = `${state.heightCm} cm`;
       $("#weight-val").textContent = `${state.weightKg} kg`;
     }
-    $("#age").addEventListener("input", (e)=>{state.age=Number(e.target.value);syncStep2Text();paintRange(e.target);});
-    $("#height").addEventListener("input", (e)=>{state.heightCm=Number(e.target.value);syncStep2Text();paintRange(e.target);});
-    $("#weight").addEventListener("input", (e)=>{state.weightKg=Number(e.target.value);syncStep2Text();paintRange(e.target);});
+
+    $("#age").addEventListener("input",(e)=>{state.age=Number(e.target.value);syncStep2Text();paintRange(e.target);});
+    $("#height").addEventListener("input",(e)=>{state.heightCm=Number(e.target.value);syncStep2Text();paintRange(e.target);});
+    $("#weight").addEventListener("input",(e)=>{state.weightKg=Number(e.target.value);syncStep2Text();paintRange(e.target);});
 
     $("#to-step-3").addEventListener("click", () => showStep(3));
     $("#back-1").addEventListener("click", () => showStep(1));
 
-    // Step 3
     const actCards = $$("#activity-cards .cardopt");
     actCards.forEach(card => card.addEventListener("click", () => {
       setSelected(actCards, card);
@@ -487,7 +481,6 @@
     }));
     $("#back-2").addEventListener("click", () => showStep(2));
 
-    // Calculation: Revised Harris-Benedict
     function bmrHB(){
       const w=state.weightKg, h=state.heightCm, a=state.age;
       if(state.gender==="m") return 88.362 + (13.397*w) + (4.799*h) - (5.677*a);
@@ -507,8 +500,12 @@
       const kcal = targetCalories();
       $("#kcal-out").textContent = String(kcal);
       $("#prot-out").textContent = `${targetProtein()}g`;
-      $("#mce-KALORIER").value = String(kcal);
-      $("#mce-TAGS").value = String(TAG_ID);
+
+      const kcalField = $("#mce-KALORIER");
+      if(kcalField) kcalField.value = String(kcal);
+
+      const merge8 = $("#mce-MERGE8");
+      if(merge8) merge8.value = "Kalorieberegner 2026";
     }
 
     $("#ppk").addEventListener("input",(e)=>{
@@ -548,7 +545,6 @@
       }
     });
 
-    // init
     syncStep2Text();
     ["#age","#height","#weight","#ppk","#def"].forEach(id => { const el=$(id); if(el) paintRange(el); });
     updateResults();
